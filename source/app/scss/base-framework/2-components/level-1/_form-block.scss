@@ -1,0 +1,100 @@
+.form-block {
+}
+.form-block > .row {
+    margin: 0.5rem auto 1rem;
+}
+.form-block > .row > .col {
+    position: relative;
+    margin: 0.25rem auto;
+}
+.form-block > .row > .col.label-col > label {
+    display: inline-block;
+}
+.form-block > .row textarea {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    margin: 0;
+}
+.form-block > .row select,
+.form-block > .row input {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+}
+.form-block > .row input[type="radio"],
+.form-block > .row input[type="checkbox"] {
+    box-sizing: content-box;
+    width: initial;
+}
+
+.form-block > .row.buttons-at-rightside {
+    margin-bottom: 1rem;
+    text-align: right;
+}
+
+.form-block > .row.buttons-at-rightside button {
+    margin-right: 0;
+    min-width: 4rem;
+}
+
+.input-field-tip {
+    position: absolute;
+    left: 0;
+    top: -0.25em;
+    display: block;
+    width: 100%;
+    height: 0;
+    overflow: visible!important;
+    z-index: 2;
+}
+.col.label-col .input-field-tip {
+    display: inline-block;
+    width: auto;
+    left: auto;
+    margin-left: 1rem;
+}
+
+.dialog-body > .content .input-field-tip article,
+.input-field-tip article {
+    position: relative;
+    display: inline-block;
+    width: auto;
+    padding: 0.1em 1em;
+    border-width: 1px;
+    font-size: 0.6rem;
+}
+
+.dialog-body > .content .input-field-tip article p,
+.input-field-tip article p {
+    line-height: 1.2;
+    padding: 0.25em 1em;
+    margin: 0 -1em;
+}
+
+.input-field-tip.input-field-tip-enter-active {
+    animation: slide-in-from-rightsides-v2 0.6s ease-out;
+}
+@keyframes slide-in-from-rightsides {
+	0%   { opacity: 0; transform: translate( 4rem, 0); }
+	56%  { opacity: 1; transform: translate(-0.36rem, 0); }
+	100% {             transform: translate(    0, 0); }
+}
+@keyframes slide-in-from-rightsides-v2 {
+	0%   { opacity: 0; transform: translate( 4rem, 0); }
+	30%  { opacity: 1; transform: translate(-0.36rem, 0); }
+	57%  {             transform: translate( 0.16rem, 0); }
+	80%  {             transform: translate(-0.06rem, 0); }
+	100% {             transform: translate(       0, 0); }
+}
+
+
+@media only screen and (max-width: 470px) { /* mobile phone screen */
+    .form-block > .row.buttons-at-rightside button {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        margin: 0.5rem auto;
+    }
+}

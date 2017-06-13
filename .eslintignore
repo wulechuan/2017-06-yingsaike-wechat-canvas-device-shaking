@@ -1,0 +1,6 @@
+**/node_modules/**/*
+**/3rd-part*/**/*
+**/*.min.js
+build/**/*
+**/temp/**/*
+**/_temp/**/*

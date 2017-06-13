@@ -1,0 +1,140 @@
+.icon {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	font-size: 20px;
+	text-align: center;
+
+	&.animation,
+	&.transition {
+		background-image: none;
+	}
+
+    &.icons-in-elements {
+		position: relative;
+		overflow: hidden;
+
+		.iconfont,
+		.icon-face-part,
+		.icon-face-1,
+		.icon-face-2,
+		.icon-face {
+			display: block;
+			position: absolute;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			top: 0;
+		}
+
+		.iconfont {
+			zoom: 1;
+			vertical-align: baseline;
+			font-size: inherit;
+			transition-property: opacity, transform, color, visibility;
+			transition-duration: 0.24s, 0.6s, 0.6s, 0.6s;
+
+            &:before {
+                margin: 0;
+            }
+		}
+
+        .icon-face-1,
+        .icon-face-2 {
+            display: none;
+            transition-duration: 0.6s;
+            transition-timing-function: ease-out;
+        }
+
+		.icon-face-1 {
+			visibility: visible;
+			opacity: 1;
+			transition-delay: 0.1s;
+		}
+
+		.icon-face-2 {
+			visibility: hidden;
+			opacity: 0;
+			transition-delay: 0s;
+		}
+
+		.icon-hover-trigger:hover & .icon-face-1,
+		&:hover .icon-face-1 {
+			visibility: hidden;
+			opacity: 0;
+			transition-delay: 0s;
+		}
+		.icon-hover-trigger:hover & .icon-face-2,
+		&:hover .icon-face-2 {
+			visibility: visible;
+			opacity: 1;
+			transition-delay: 0.1s;
+		}
+
+		&.transition {
+			.icon-face-1,
+			.icon-face-2 {
+				transition-property: opacity, top, visibility;
+				transition-duration: 0.24s, 0.6s, 0.6s;
+				transition-delay: 0s;
+			}
+
+			.icon-face-1 {
+				top: 0;
+			}
+			.icon-face-2 {
+				top: 100%;
+			}
+
+			.icon-hover-trigger:hover & .icon-face-1,
+			&:hover .icon-face-1 {
+				top: -100%;
+				transition-delay: 0s;
+			}
+
+			.icon-hover-trigger:hover & .icon-face-2,
+			&:hover .icon-face-2 {
+				top: 0;
+				transition-delay: 0s;
+			}
+        }
+
+		&.animation {
+			&,
+			.icon-face-1,
+			.icon-face-2 {
+				transition-duration: 0.3s;
+			}
+
+			.icon-face-1,
+			.icon-face-2 {
+				top: 0;
+			}
+
+			.icon-face-1 {
+				transform: translateY(0px);
+				-ms-transform: translateY(0px); /* ie9 */
+				animation-name: icon-face-1-slides-downwards;
+			}
+			.icon-face-2 {
+				transform: translateY(100%);
+				-ms-transform: translateY(100%); /* ie9 */
+				animation-name: icon-face-2-slides-downwards;
+			}
+			.icon-hover-trigger:hover & .icon-face-1,
+			&:hover .icon-face-1 {
+				transform: translateY(-100%);
+				-ms-transform: translateY(-100%); /* ie9 */
+				animation-name: icon-face-1-slides-upwards;
+			}
+			.icon-hover-trigger:hover & .icon-face-2,
+			&:hover .icon-face-2 {
+				transform: translateY(0px);
+				-ms-transform: translateY(0px); /* ie9 */
+				animation-name: icon-face-2-slides-upwards;
+			}
+        }
+	}
+}

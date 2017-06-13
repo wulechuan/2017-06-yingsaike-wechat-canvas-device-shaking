@@ -1,0 +1,244 @@
+$shaking-hint-masks-moving-distance: 3.2rem;
+
+@keyframes shaking-hint-mask-upper-half-acting {
+	0%   { transform: translateY(0); }
+	50%  { transform: translateY(-1 * $shaking-hint-masks-moving-distance); }
+	100% { transform: translateY(0); }
+}
+
+@keyframes shaking-hint-mask-lower-half-acting {
+	0%   { transform: translateY(0); }
+	50%  { transform: translateY($shaking-hint-masks-moving-distance); }
+	100% { transform: translateY(0); }
+}
+
+
+$callToActionButtonOffset: 5rem;
+
+@keyframes symbol-thrown-out-inner-part-ani {
+	0%   { transform: translate3D(0, -1 * $callToActionButtonOffset, -16rem) rotateX(105deg) scale3d(0.1, 0.1, 0.1); }
+	30%  { transform: translate3D(0, -1 * $callToActionButtonOffset - 1rem, -3rem) rotateX(60deg) scale3d(0.7, 0.7, 0.7); }
+	100% { transform: translate3D(0, 0, 0) rotateX(0) scale3d(1, 1, 1); }
+}
+
+.stage.shake-device-to-start {
+	background-color: #2e3132;
+
+	.bg {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		margin: 1rem 0;
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-image: url(images/circuit-borad.png);
+	}
+
+	.shaking-hint {
+		background-color: inherit;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		width: auto;
+		height: 15rem;
+		margin: auto;
+		overflow: visible;
+
+		.bg {
+			z-index: 0;
+		}
+
+		.mask {
+			background-color: inherit;
+			position: absolute;
+			left: 0;
+			right: 0;
+			width: auto;
+			height: 50%;
+			margin: auto;
+			overflow: hidden;
+			animation-duration: 0.3s;
+			animation-timing-function: ease-in-out;
+
+			.symbol {
+				position: absolute;
+				width: 100%;
+				height: 50%;
+
+				background-repeat: no-repeat;
+				background-size: auto 200%;
+				background-image: url(images/icon-shake-your-device.png);
+			}
+
+			&.mask-upper-half {
+				top: 0;
+
+				&.animating {
+					animation-name: shaking-hint-mask-upper-half-acting;
+				}
+
+				.symbol {
+					bottom: 0;
+					background-position: top;
+				}
+			}
+
+			&.mask-lower-half {
+				bottom: 0;
+
+				&.animating {
+					animation-name: shaking-hint-mask-lower-half-acting;
+				}
+
+				.symbol {
+					top: 0;
+					background-position: bottom;
+				}
+			}
+		}
+	}
+
+	.symbol-thrown-out-outer {
+		display: block;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 50%;
+		width: 100%;
+		overflow: visible;
+		transform-style: preserve-3d;
+		perspective: 10rem;
+
+		.symbol-thrown-out-inner {
+			display: block;
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: $callToActionButtonOffset;
+			width: 80%;
+			overflow: visible;
+			margin: 0 auto;
+
+			&.animating {
+				animation-delay: 0.1s;
+				animation-duration: 0.38s;
+				animation-fill-mode: both;
+				animation-timing-function: ease-out;
+				animation-name: symbol-thrown-out-inner-part-ani;
+			}	
+		}
+	}
+
+	button.call-to-action {
+		box-sizing: border-box;
+		display: block;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		width: 12.5rem;
+		max-width: none;
+		margin: auto;
+		padding-left: 4rem;
+		padding-right: 0.5rem;
+
+		color: white;
+		border-radius: 0.1rem;
+		border-color: rgba(white, 0.16);
+		background-color: rgba(white, 0.1);
+		box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.2);
+
+		// &.animating {
+		// 	animation-name: call-to-action-button-enter-stage;
+		// 	animation-delay: 0.05s;
+		// 	animation-duration: 0.3s;
+		// 	animation-timing-function: ease-out;
+		// }
+
+		& > .label,
+		.icon {
+			height: 3rem;
+			line-height: 3rem;
+		}
+
+		.icon {
+			width: 3rem;
+			position: absolute;
+			display: block;
+			left: 0.5rem;
+
+			&.icon-in-bg {
+				background-size: contain;
+				background-position: center;
+			}
+		}
+
+		& > .label {
+			font-size: 0.9rem;
+			letter-spacing: 0.08em;
+		}
+	}
+}
+
+.stage.ppt {
+	color: white;
+
+	.background-heros-container {
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 0;
+		height: 0;
+		overflow: hidden;
+		z-index: -1;
+	}
+
+	canvas.bg {
+		width: 100%;
+		height: 100%;
+
+		&.bg-rendering-source {
+			position: fixed;
+			left: 0;
+			top: 0;
+		}
+	}
+
+	.bg {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		margin: auto;
+		padding: 0;
+
+		&.bg-1 {
+			background-image: url(images/bg.jpg);
+		}
+	}
+}
+
+.ppt-page {
+	&.ppt-page-1 {
+	}
+
+	&.ppt-page-2 {
+	}
+
+	&.ppt-page-3 {
+	}
+
+	&.ppt-page-4 {
+
+	}
+
+	&.ppt-page-5 {
+
+	}
+}

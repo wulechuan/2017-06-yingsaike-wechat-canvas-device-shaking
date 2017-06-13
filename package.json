@@ -1,0 +1,25 @@
+{
+  "name": "recruit-2017-06-big-data-and-ubi",
+  "version": "1.0.0",
+  "description": "2017年6月的大数据和UBI招聘广告，用于微信Web View环境。",
+  "main": "build/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "吴乐川",
+  "license": "Private",
+  "devDependencies": {
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-csso": "^3.0.0",
+    "gulp-html-minify": "^0.0.14",
+    "gulp-inject": "^4.2.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-sequence": "^0.4.6",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-uglify": "^3.0.0",
+    "path": "^0.12.7",
+    "pump": "^1.0.2"
+  }
+}

@@ -1,0 +1,41 @@
+article {
+	position: static;
+
+	h6,
+	h5,
+	h4,
+	h3,
+	h2,
+	h1 {
+		text-align: center;
+	}
+	h1 {
+		font-size: 1.7rem;
+		font-weight: 300;
+	}
+	h2 {
+		font-size: 1.5rem;
+		font-weight: 400;
+	}
+	.ofbl /* opportunity for breaking line */ {
+		display: inline-block;
+	}
+}
+
+ol.list-indices-in-labels {
+	list-style: none;
+	padding-left: 0;
+
+	& > li {
+		position: relative;
+		padding-left: 3.5rem;	
+	}
+	& > li > .label {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	& > li.has-p-tag > .label { /* has-p-tag means there is a <p> nested under the <li>. */
+		top: 0.5em;
+	}
+}
