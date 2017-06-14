@@ -297,5 +297,5 @@
 
 
 	app.init();
-	app.showStage(2);
+	// app.showStage(2);
 });
