@@ -6,6 +6,8 @@ $actor-name: null;
 
     $bulb-element-delay: 0.3s;
     $bulb-element-delay-delta: 0.09s;
+    $bulb-element-duration: 0.6s;
+
     $h2-width: 70%;
     h2 {
         position: relative;
@@ -26,6 +28,7 @@ $actor-name: null;
 
             @include -insaic-actor-with-standard-animation(
                 $page-name + '-' + $actor-name,
+                $entering-duration: $bulb-element-duration,
                 $entering-distance: 2rem,
                 $entering-direction: 'up'
             );
@@ -57,6 +60,7 @@ $actor-name: null;
 
             @include -insaic-actor-with-standard-animation(
                 $page-name + '-recruiting-positions',
+                $entering-duration: $bulb-element-duration,
                 $entering-distance: 2rem,
                 $entering-direction: 'up'
             );

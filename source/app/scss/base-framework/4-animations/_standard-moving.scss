@@ -1,11 +1,16 @@
+$default-duration: 0.3s;
+$default-distance: 3rem;
+$default-direction: 90deg;
+$default-fading: "fade-in";
+
 @mixin -wlc-animation-moving-2d(
 	$animation-name,
-	$duration: 0.3s,
-	$distance: 3rem,
-	$direction: 0,
-	$distance-x: 2.7rem,
-	$distance-y: 2.7rem,
-	$fading: "fade-in"
+	$duration: $default-duration,
+	$distance: $default-distance,
+	$direction: $default-direction,
+	$distance-x: null,
+	$distance-y: null,
+	$fading: $default-fading
 ) {
 	$opcaityStart: null;
 	$opcaityEnd: null;
@@ -28,24 +33,24 @@
         @if not $distance-x { $distance-x: 0; }
         @if not $distance-y { $distance-y: 0; }
     } @else {
-        @if type-of($distance) != 'number' { $distance: 3rem; }
+        @if type-of($distance) != 'number' { $distance: $default-distance; }
 
-        @if not $direction { $direction: 0; }
+        @if not $direction { $direction: $default-direction; }
         @if type-of($direction) == 'string' { $direction: to-lower-case($direction);}
-        @else if type-of($direction) != 'number' { $direction: 0; }
+        @else if type-of($direction) != 'number' { $direction: $default-direction; }
     }
 
-	@if not $duration { $duration: 0.3s; }
+	@if not $duration { $duration: $default-duration; }
 	
 	
-	@if not $fading { $fading: "fade-in"; }
-	@else if type-of($direction) == 'string' { $fading: to-lower-case($fading);}
+	@if not $fading { $fading: $default-fading; }
+	@else if type-of($direction) == 'string' { $fading: to-lower-case($fading); }
 
 
-	@if ($fading == "fade-in") {
+	@if $fading == "fade-in" or $fading == "in" {
 		$opcaityStart: 0;
 		$opcaityEnd: 1;
-	} @else if ($fading == "fade-out") {
+	} @else if $fading == "fade-out" or $fading == "out" {
 		$opcaityStart: 1;
 		$opcaityEnd: 0;
 	}
