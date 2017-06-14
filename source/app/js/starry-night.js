@@ -76,6 +76,8 @@
 			for (i = 0; i < shootingStarsCount; i++) {
 				allStarsOfAllTypes.push(
 					new ShootingStar(canvas, {
+						headColor: options.shootingStarHeadColor,
+						tailColor: options.shootingStarTailColor,
 						expectedSpeed: options.shootingStarsExpectedSpeed
 					})
 				);
@@ -173,7 +175,8 @@
 
 		var headColor = 'white';
 		var tailColor = 'white';
-		var size = 0;
+		var headSize = 0;
+		var tailThickness = 0;
 		var tailLengthX = 0;
 		var tailLengthY = 0;
 
@@ -208,8 +211,13 @@
 				expectedSpeed = tempInput;
 			}
 
-			// headColor = initOptions.headColor;
-			// tailColor = initOptions.tailColor;
+			if (initOptions.headColor) {
+				headColor = initOptions.headColor;
+			}
+
+			if (initOptions.tailColor) {
+				tailColor = initOptions.tailColor;
+			}
 
 			prepareForNextShooting.call(thisShootingStar);
 		}
@@ -225,8 +233,10 @@
 			x = canvasWidth * (Math.random() * 2.5 - 0.5);
 			y = 0;
 
-			size = (Math.random() * 1) + 0.1;
-			var tailLength = (Math.random() * 80) + 10;
+			headSize = (Math.random() * 3) + 0.2;
+			tailThickness = headSize * 0.4;
+
+			var tailLength = (Math.random() * 50) + 40;
 			tailLengthX = tailLength;
 			tailLengthY = tailLength;
 
@@ -245,13 +255,25 @@
 
 			x -= currentlyUsedSpeedX;
 			y += currentlyUsedSpeedY;
-			canvasContext.fillStyle = headColor;
+
+			var halfHeadSize = headSize / 2;
+
+			// draw tail
 			canvasContext.strokeStyle = tailColor;
-			canvasContext.lineWidth = size;
+			canvasContext.lineWidth = tailThickness;
 			canvasContext.beginPath();
 			canvasContext.moveTo(x, y);
 			canvasContext.lineTo(x + tailLengthX, y - tailLengthY);
 			canvasContext.stroke();
+
+			// draw head
+			canvasContext.fillStyle = headColor;
+			canvasContext.beginPath();
+			canvasContext.moveTo(x,                y - halfHeadSize);
+			canvasContext.lineTo(x - halfHeadSize, y);
+			canvasContext.lineTo(x,                y + halfHeadSize);
+			canvasContext.lineTo(x + halfHeadSize, y);
+			canvasContext.fill();
 
 			if (x+tailLengthX < 0 || y-tailLengthY >= canvasHeight) {
 				isShooting = false;
