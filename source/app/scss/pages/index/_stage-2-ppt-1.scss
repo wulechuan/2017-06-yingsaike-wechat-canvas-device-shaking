@@ -4,7 +4,7 @@ $actor-name: null;
 .ppt-#{$page-name} {
     color: black;
 
-    $bulb-element-delay: 0.3s;
+    $bulb-element-delay: 0.67s;
     $bulb-element-delay-delta: 0.09s;
     $bulb-element-duration: 0.6s;
 
@@ -106,7 +106,7 @@ $actor-name: null;
         width: 60%;
         height: 70%;
 
-        > .actor {
+        & > .actor {
             left: 0;
             top: 0;
             width: 100%;
@@ -117,28 +117,123 @@ $actor-name: null;
 
             @include -insaic-actor-with-standard-animation(
                 $page-name + '-' + $actor-name,
-                $entering-distance: 12rem,
+                $entering-duration: 0.6s,
+                $entering-distance: 5rem,
                 $entering-direction: 90
             );
         }
 
-        $actor-name: 'hero-bulb-beam';
-        .locator.#{$actor-name} {
-            & > .actor {
-                left: -0.12rem;
-                bottom: 0;
-                width: 0.24rem;
-                height: 1.5rem;
-                border-radius: 1rem;
-                background-color: pink;
+        .hero-bulb-beams {
+            $actor-name: 'hero-bulb-beam';
+            .locator {
+                .actor {
+                    left: -0.12rem;
+                    bottom: 0;
+                    width: 0.24rem;
+                    height: 1.5rem;
+                    border-radius: 1rem;
+                    background-color: #f3ca43;
 
-                animation-delay: 1s;
+                    animation-delay: 0.56s;
+                    box-shadow:
+                        0 0 0.6rem rgba(#f3ca43, 0.87),
+                        0 0 0.3rem rgba(#f3ca43, 0.87)
+                        ;
 
-                @include -insaic-actor-with-standard-animation(
-                    $page-name + '-' + $actor-name,
-                    $entering-distance: 1rem,
-                    $entering-direction: 'up'
-                );
+                    @include -insaic-actor-with-standard-animation(
+                        $page-name + '-' + $actor-name,
+                        $entering-duration: 0.56s,
+                        $entering-distance: 1rem,
+                        $entering-direction: 'up'
+                    );
+                }
+
+                &:nth-child(1) {
+                    left: 50%;
+                    top: -1rem;
+                }
+
+                &:nth-child(2) {
+                    left: 15%;
+                    top: 0.1rem;
+                    transform: rotateZ(-38deg);
+
+                    .actor {
+                        height: 1.38rem;
+                    }
+                }
+
+                &:nth-child(3) {
+                    right: 15%;
+                    top: 0.1rem;
+                    transform: rotateZ(38deg);
+
+                    .actor {
+                        height: 1.47rem;
+                    }
+                }
+
+                &:nth-child(4) {
+                    left: -5%;
+                    top: 3rem;
+                    transform: rotateZ(-74deg);
+
+                    .actor {
+                        height: 1.56rem;
+                    }
+                }
+
+                &:nth-child(5) {
+                    right: -5%;
+                    top: 3rem;
+                    transform: rotateZ(74deg);
+
+                    .actor {
+                        height: 1.33rem;
+                    }
+                }
+
+                &:nth-child(6) {
+                    left: -6.8%;
+                    top: 6.6rem;
+                    transform: rotateZ(-104deg);
+
+                    .actor {
+                        height: 1.4rem;
+                    }
+                }
+
+                &:nth-child(7) {
+                    right: -6.8%;
+                    top: 6.6rem;
+                    transform: rotateZ(104deg);
+
+                    .actor {
+                        height: 1.45rem;
+                    }
+                }
+
+                &:nth-child(8) {
+                    left: 9%;
+                    top: 9.8rem;
+                    transform: rotateZ(-128deg);
+
+                    .actor {
+                        width: 0.2rem;
+                        height: 1.43rem;
+                    }
+                }
+
+                &:nth-child(9) {
+                    right: 9%;
+                    top: 9.8rem;
+                    transform: rotateZ(128deg);
+
+                    .actor {
+                        width: 0.2rem;
+                        height: 1.4rem;
+                    }
+                }
             }
         }
     }
