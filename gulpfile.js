@@ -209,6 +209,7 @@ if (!shouldMinifyFiles) shouldBuildSourceMaps = false;
 			stream = stream.pipe(inject(gulp.src([filePath]), {
 				starttag: starttag,
 				transform: changeSnippetContentAsNeeded,
+				removeTags: true,
 				quiet: true
 			}));
 		}
@@ -233,14 +234,33 @@ if (!shouldMinifyFiles) shouldBuildSourceMaps = false;
 		}
 	});
 
-	gulp.task('build: html: app', (onThisTaskDone) => {
+	gulp.task('build: html: merge', (onThisTaskDone) => {
 		var actionsToTake = [];
 		actionsToTake.push(gulp.src([
 			pathTool.join(buildCacheFolder, '*.html')
 		]));
 		actionsToTake.push(concatInto(outputHtmlFileName));
+		actionsToTake.push(gulp.dest(buildCacheFolder));
+		pump(actionsToTake, onThisTaskDone);
+	});
+
+	gulp.task('build: html: minify', (onThisTaskDone) => {
+		var actionsToTake = [];
+		actionsToTake.push(gulp.src([
+			pathTool.join(buildCacheFolder, '*.html')
+		]));
 		if (shouldMinifyFiles) {
-			actionsToTake.push(minifyHtml());
+			actionsToTake.push(minifyHtml({
+				removeComments: true,
+				collapseWhitespace: true,
+				collapseBooleanAttributes: true,
+				removeAttributeQuotes: false,
+				removeRedundantAttributes: true,
+				removeEmptyAttributes: true,
+				removeScriptTypeAttributes: true,
+				removeStyleLinkTypeAttributes: true,
+				// removeOptionalTags: true
+			}));
 		}
 		actionsToTake.push(gulp.dest(targetFolder));
 		pump(actionsToTake, onThisTaskDone);
@@ -249,7 +269,8 @@ if (!shouldMinifyFiles) shouldBuildSourceMaps = false;
 	gulp.task('build: html: all', (onThisTaskDone) => {
 		runTasksInSequence(
 			'build: html: inject snippets',
-			'build: html: app'
+			'build: html: merge',
+			'build: html: minify'
 		)(onThisTaskDone);
 	});
 })();
@@ -260,8 +281,11 @@ if (!shouldMinifyFiles) shouldBuildSourceMaps = false;
 		return deleteFiles(pathTool.join(targetFolder, '/**/*'));
 	});
 
-	gulp.task('clear build cache', () => {
-		return deleteFiles(buildCacheFolder);
+	gulp.task('clear build cache', (onThisTaskDone) => {
+		setTimeout(()=> {
+			deleteFiles(buildCacheFolder);
+			onThisTaskDone();
+		}, 2222);
 	});
 
 	gulp.task('build: all', (onThisTaskDone) => {

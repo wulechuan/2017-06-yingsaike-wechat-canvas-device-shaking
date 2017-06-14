@@ -61,7 +61,7 @@
 		},
 
 		listenToDeviceShaking: function () {
-			this.onDeviceShaking = (function onShaking(event) {
+			this.onDeviceShaking = (function onShaking(/* event */) {
 				stage1.openShutterOnce();
 				this.playShutterSoundOnce();
 				this.stopListeningToDeviceShaking();
@@ -204,10 +204,14 @@
 			});
 
 			function onFullPageJsPageLoaded(anchorLink, index) {
-				$($slides[index-1]).find('.actor').addClass('acting');
+				$($slides[index-1]).find('.actor')
+					.removeClass('leaving')
+					.addClass('acting entering');
 
 				if (lastShownSlide>=0) {
-					$(lastShownSlide).find('.actor').removeClass('acting');
+					$(lastShownSlide).find('.actor')
+						.removeClass('entering')
+						.addClass('acting leaving');
 				}
 
 				lastShownSlide = index;
@@ -281,7 +285,7 @@
 			stage.elements.$duplicationCanvases.each(function () {
 				var canvas = this;
 				var ctx = canvas.getContext('2d');
-				ctx.clearRect(0, 0, canvas.width, canvas.height)
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
 				ctx.drawImage(stage.elements.sourceCanvas, 0, 0);
 			});
 		}

@@ -1,26 +1,3 @@
-$shaking-hint-masks-moving-distance: 3.2rem;
-
-@keyframes shaking-hint-mask-upper-half-acting {
-	0%   { transform: translateY(0); }
-	50%  { transform: translateY(-1 * $shaking-hint-masks-moving-distance); }
-	100% { transform: translateY(0); }
-}
-
-@keyframes shaking-hint-mask-lower-half-acting {
-	0%   { transform: translateY(0); }
-	50%  { transform: translateY($shaking-hint-masks-moving-distance); }
-	100% { transform: translateY(0); }
-}
-
-
-$callToActionButtonOffset: 5rem;
-
-@keyframes symbol-thrown-out-inner-part-ani {
-	0%   { transform: translate3D(0, -1 * $callToActionButtonOffset, -16rem) rotateX(105deg) scale3d(0.1, 0.1, 0.1); }
-	30%  { transform: translate3D(0, -1 * $callToActionButtonOffset - 1rem, -3rem) rotateX(60deg) scale3d(0.7, 0.7, 0.7); }
-	100% { transform: translate3D(0, 0, 0) rotateX(0) scale3d(1, 1, 1); }
-}
-
 .stage.shake-device-to-start {
 	background-color: #2e3132;
 
@@ -31,13 +8,35 @@ $callToActionButtonOffset: 5rem;
 		left: 0;
 		right: 0;
 		margin: 1rem 0;
-		background-size: contain;
+		background-size: auto 5rem;
 		background-position: center;
 		background-repeat: no-repeat;
-		background-image: url(images/circuit-borad.png);
+		background-image: url(images/flower.png);
 	}
 
+	$shaking-hint-masks-moving-distance: 3.2rem;
+	$callToActionButtonOffset: 5rem;
+
 	.shaking-hint {
+		@keyframes shaking-hint-mask-upper-half-acting {
+			0%   { transform: translateY(0); }
+			50%  { transform: translateY(-1 * $shaking-hint-masks-moving-distance); }
+			100% { transform: translateY(0); }
+		}
+
+		@keyframes shaking-hint-mask-lower-half-acting {
+			0%   { transform: translateY(0); }
+			50%  { transform: translateY($shaking-hint-masks-moving-distance); }
+			100% { transform: translateY(0); }
+		}
+
+		@keyframes symbol-thrown-out-inner-part-ani {
+			0%   { transform: translate3D(0, -1 * $callToActionButtonOffset, -16rem) rotateX(105deg) scale3d(0.1, 0.1, 0.1); }
+			30%  { transform: translate3D(0, -1 * $callToActionButtonOffset - 1rem, -3rem) rotateX(60deg) scale3d(0.7, 0.7, 0.7); }
+			100% { transform: translate3D(0, 0, 0) rotateX(0) scale3d(1, 1, 1); }
+		}
+
+
 		background-color: inherit;
 		position: absolute;
 		left: 0;
@@ -62,7 +61,7 @@ $callToActionButtonOffset: 5rem;
 			height: 50%;
 			margin: auto;
 			overflow: hidden;
-			animation-duration: 0.3s;
+			animation-duration: 0.45s;
 			animation-timing-function: ease-in-out;
 
 			.symbol {
@@ -126,7 +125,7 @@ $callToActionButtonOffset: 5rem;
 
 			&.animating {
 				animation-delay: 0.1s;
-				animation-duration: 0.38s;
+				animation-duration: 0.45s;
 				animation-fill-mode: both;
 				animation-timing-function: ease-out;
 				animation-name: symbol-thrown-out-inner-part-ani;
@@ -182,63 +181,5 @@ $callToActionButtonOffset: 5rem;
 			font-size: 0.9rem;
 			letter-spacing: 0.08em;
 		}
-	}
-}
-
-.stage.ppt {
-	color: white;
-
-	.background-heros-container {
-		position: fixed;
-		left: 0;
-		top: 0;
-		width: 0;
-		height: 0;
-		overflow: hidden;
-		z-index: -1;
-	}
-
-	canvas.bg {
-		width: 100%;
-		height: 100%;
-
-		&.bg-rendering-source {
-			position: fixed;
-			left: 0;
-			top: 0;
-		}
-	}
-
-	.bg {
-		position: absolute;
-		left: 0;
-		right: 0;
-		top: 0;
-		bottom: 0;
-		margin: auto;
-		padding: 0;
-
-		&.bg-1 {
-			background-image: url(images/bg.jpg);
-		}
-	}
-}
-
-.ppt-page {
-	&.ppt-page-1 {
-	}
-
-	&.ppt-page-2 {
-	}
-
-	&.ppt-page-3 {
-	}
-
-	&.ppt-page-4 {
-
-	}
-
-	&.ppt-page-5 {
-
 	}
 }

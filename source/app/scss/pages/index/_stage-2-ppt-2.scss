@@ -1,0 +1,28 @@
+$page-name: 'page-2';
+$actor-name: null;
+
+.ppt-#{$page-name} {
+    $actor-name: 'actor-tree';
+    .actor.#{$actor-name} {
+        @include -insaic-actor-with-standard-animation(
+            $page-name + '-' + $actor-name,
+            $entering-distance: 12rem,
+            $entering-direction: 90
+        );
+    }
+
+
+
+    $actor-name: 'actor-nail-1';
+    .locator.#{$actor-name}-locator {
+        @include -insaic-locator-2d($left: 0, $top: 0, $rotation: 12);
+
+        .actor.#{$actor-name} {
+            @include -insaic-actor-with-standard-animation(
+                $page-name + '-' + $actor-name,
+                $entering-distance: 1rem,
+                $entering-direction: 90
+            );
+        }
+    }
+}

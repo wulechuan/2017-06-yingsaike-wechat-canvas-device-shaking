@@ -1,0 +1,161 @@
+@mixin -wlc-animation-moving-2d(
+	$animation-name,
+	$duration: 0.3s,
+	$distance: 3rem,
+	$direction: 0,
+	$distance-x: 2.7rem,
+	$distance-y: 2.7rem,
+	$fading: "fade-in"
+) {
+	$opcaityStart: null;
+	$opcaityEnd: null;
+
+    $shouldUseXAndY: false;
+
+    @if type-of($distance-x) == 'number' or type-of($distance-y) == 'number' {
+        $shouldUseXAndY: true;
+
+        @if $distance {
+            @warn "$distance will be ignored. It was #{$distance}.";
+            $distance: null;
+        }
+
+        @if $direction {
+            @warn "$direction will be ignored. It was #{$direction}.";
+            $direction: null;
+        }
+
+        @if not $distance-x { $distance-x: 0; }
+        @if not $distance-y { $distance-y: 0; }
+    } @else {
+        @if type-of($distance) != 'number' { $distance: 3rem; }
+
+        @if not $direction { $direction: 0; }
+        @if type-of($direction) == 'string' { $direction: to-lower-case($direction);}
+        @else if type-of($direction) != 'number' { $direction: 0; }
+    }
+
+	@if not $duration { $duration: 0.3s; }
+	
+	
+	@if not $fading { $fading: "fade-in"; }
+	@else if type-of($direction) == 'string' { $fading: to-lower-case($fading);}
+
+
+	@if ($fading == "fade-in") {
+		$opcaityStart: 0;
+		$opcaityEnd: 1;
+	} @else if ($fading == "fade-out") {
+		$opcaityStart: 1;
+		$opcaityEnd: 0;
+	}
+
+
+	$keyframes-defined-successfully: null;
+
+
+    @if $shouldUseXAndY {
+
+        @keyframes #{$animation-name} {
+            0%   { opacity: $opcaityStart;	transform: translate($distance-x, $distance-y); }
+            100% { opacity: $opcaityEnd; 	transform: translate(0, 0); }
+        }
+
+        $keyframes-defined-successfully: true;
+
+    } @else {
+        @if (
+            $direction == 0 or
+            $direction == "0" or
+            $direction == "r" or
+            $direction == "right" or
+            $direction == "rightwards"
+        ) {
+
+            @keyframes #{$animation-name} {
+                0%   { opacity: $opcaityStart;	transform: translateX(-1 * $distance); }
+                100% { opacity: $opcaityEnd; 	transform: translateX(0); }
+            }
+
+            $keyframes-defined-successfully: true;
+
+        } @else if (
+            $direction == 90 or
+            $direction == "90" or
+            $direction == "u" or
+            $direction == "up" or
+            $direction == "upwards"
+        ) {
+
+            @keyframes #{$animation-name} {
+                0%   { opacity: $opcaityStart;	transform: translateY($distance); }
+                100% { opacity: $opcaityEnd; 	transform: translateY(0); }
+            }
+
+            $keyframes-defined-successfully: true;
+
+        } @else if (
+            $direction == 180 or
+            $direction == "180" or
+            $direction == "l" or
+            $direction == "left" or
+            $direction == "leftwards"
+        ) {
+
+            @keyframes #{$animation-name} {
+                0%   { opacity: $opcaityStart;	transform: translateX($distance); }
+                100% { opacity: $opcaityEnd; 	transform: translateX(0); }
+            }
+
+            $keyframes-defined-successfully: true;
+
+        } @else if (
+            $direction == 270 or
+            $direction == "270" or
+            $direction == "d" or
+            $direction == "down" or
+            $direction == "downwards"
+        ) {
+
+            @keyframes #{$animation-name} {
+                0%   { opacity: $opcaityStart;	transform: translateY(-1 * $distance); }
+                100% { opacity: $opcaityEnd; 	transform: translateY(0); }
+            }
+
+            $keyframes-defined-successfully: true;
+
+        } @else if (
+            type-of($direction) == 'number'
+        ) {
+
+            @error "Sorry! SASS does NOT support sin/cos at present. Please don't use non-perpendicular values for $direction.";
+
+            $distance-x: $distance * sin($direction);
+            $distance-y: $distance * cos($direction);
+
+            @keyframes #{$animation-name} {
+                0%   { opacity: $opcaityStart;	transform: translate($distance-x, $distance-y); }
+                100% { opacity: $opcaityEnd; 	transform: translate(0, 0); }
+            }
+
+            $keyframes-defined-successfully: true;
+
+        }
+    }
+
+
+	@if $keyframes-defined-successfully {
+
+		animation: {
+			name: #{$animation-name};
+			duration: $duration;
+            fill-mode: both;
+		}
+
+		transform: translate3d(0, 0, 0);
+		@if $opcaityEnd { opacity: $opcaityEnd; }
+
+	} @else {
+		@warn "Failed to define animation \"#{$animation-name}.\"";
+	}
+}

@@ -1,0 +1,151 @@
+$page-name: 'page-1';
+$actor-name: null;
+
+.ppt-#{$page-name} {
+    color: black;
+
+    $bulb-element-delay: 0.3s;
+    $bulb-element-delay-delta: 0.09s;
+    $h2-width: 70%;
+    h2 {
+        position: relative;
+        left: (100% - $h2-width) / 2;
+        top: 2rem;
+        width: $h2-width;
+        height: 5rem;
+
+        $actor-name: 'title';
+        > .actor.#{$actor-name} {
+            position: relative;
+            width: 100%;
+            height: 100%;
+
+            background-size: 100% auto;
+            background-position: top;
+            background-image: url(images/ppt-1-title.png);
+
+            @include -insaic-actor-with-standard-animation(
+                $page-name + '-' + $actor-name,
+                $entering-distance: 2rem,
+                $entering-direction: 'up'
+            );
+
+            animation-delay: $bulb-element-delay;
+        }
+
+        .alternative-text {
+            display: block;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+    }
+
+    $bulb-element-delay: $bulb-element-delay + $bulb-element-delay-delta;
+    .some-recruiting-positions {
+        position: relative;
+        margin-top: 0.5rem;
+        list-style: none;
+        padding: 0;
+        text-align: center;
+
+        li {
+            display: block;
+            margin: 0.25rem auto;
+            position: relative;
+
+            @include -insaic-actor-with-standard-animation(
+                $page-name + '-recruiting-positions',
+                $entering-distance: 2rem,
+                $entering-direction: 'up'
+            );
+
+            &:nth-child(1) {
+                width: 85%;
+                font-size: 1.2rem;
+                animation-delay:  $bulb-element-delay;
+            }
+            $bulb-element-delay: $bulb-element-delay + $bulb-element-delay-delta;
+
+            &:nth-child(2) {
+                width: 75%;
+                font-size: 1.0rem;
+                animation-delay:  $bulb-element-delay;
+            }
+            $bulb-element-delay: $bulb-element-delay + $bulb-element-delay-delta;
+
+            &:nth-child(3) {
+                width: 60%;
+                font-size: 0.9rem;
+                animation-delay:  $bulb-element-delay;
+            }
+            $bulb-element-delay: $bulb-element-delay + $bulb-element-delay-delta;
+
+            &:nth-child(4) {
+                width: 50%;
+                font-size: 0.75rem;
+                animation-delay:  $bulb-element-delay;
+            }
+            $bulb-element-delay: $bulb-element-delay + $bulb-element-delay-delta;
+        }
+    }
+
+
+    $actor-name: 'hero-bulb';
+    .#{$actor-name} {
+        display: block;
+        position: absolute;
+
+        left: 20%;
+        top: 20%;
+        width: 60%;
+        height: 70%;
+
+        > .actor {
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-size: 100% auto;
+            background-position: top;
+            background-image: url(images/ppt-1-hero-bulb.png);
+
+            @include -insaic-actor-with-standard-animation(
+                $page-name + '-' + $actor-name,
+                $entering-distance: 12rem,
+                $entering-direction: 90
+            );
+        }
+
+        $actor-name: 'hero-bulb-beam';
+        .locator.#{$actor-name} {
+            .actor {
+                left: 0;
+                right: 0;
+                bottom: 0;
+
+                @include -insaic-actor-with-standard-animation(
+                    $page-name + '-' + $actor-name,
+                    $entering-distance: 1rem,
+                    $entering-direction: 90
+                );
+            }
+        }
+    }
+
+
+
+    $actor-name: 'actor-pencil-1';
+    .locator.#{$actor-name} {
+        @include -insaic-locator-2d($left: 0, $top: 0, $rotation: 12);
+
+        .actor.#{$actor-name} {
+            @include -insaic-actor-with-standard-animation(
+                $page-name + '-' + $actor-name,
+                $entering-distance: 1rem,
+                $entering-direction: 90
+            );
+        }
+    }
+}

@@ -1,0 +1,25 @@
+.locator {
+	position: absolute;
+	margin: 0;
+	width: 0 !important;
+	height: 0 !important;
+	overflow: visible !important;
+	transform-style: preserve-3d;
+
+	transition: transform 1.5s -0.3s ease-out;
+
+    /* transition-timing-function: cubic-bezier(.15,.61,.22,.98); */
+	transition-timing-function: cubic-bezier(0.6, 1.12,   0.79, 1);
+}
+
+.actor {
+	position: absolute;
+	margin: 0;
+
+	transition: transform 1.5s -0.3s ease-out;
+
+	background-repeat: no-repeat;
+
+    /* transition-timing-function: cubic-bezier(.15,.61,.22,.98); */
+	transition-timing-function: cubic-bezier(0.6, 1.12,   0.79, 1);
+}

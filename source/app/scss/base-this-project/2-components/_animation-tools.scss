@@ -1,0 +1,118 @@
+@mixin -insaic-locator-2d(
+	$top: null,
+	$right: null,
+	$bottom: null,
+	$left: null,
+	$rotation: null
+) {
+	@if (type-of($left) != 'number' and
+		type-of($right) != 'number' and
+		type-of($top) != 'number' and
+		type-of($bottom) != 'number'
+	) {
+		@error "None of the left, right, top or bottom is provided.";
+	}
+
+	@if type-of($left) != 'number' and type-of($right) != 'number' {
+		@warn "Neither left nor right is provided.";
+	}
+
+	@if type-of($top) != 'number' and type-of($bottom) != 'number' {
+		@warn "Neither top nor bottom is provided.";
+	}
+
+	@if (type-of($rotation) == 'number') and ($rotation != 0) {
+		@if unitless($rotation) {
+			$rotation: unquote($rotation+'deg');
+		} @else if unit($rotation) != 'deg' {
+			$rotation: null;
+		}
+	} @else {
+		$rotation: null;
+	}
+
+	// @debug "$rotation: #{$rotation}";
+
+	left: $left;
+	right: $right;
+	top: $top;
+	bottom: $bottom;
+	@if $rotation { transform: rotateZ($rotation); }
+}
+
+@mixin -insaic-actor-with-standard-animation(
+	$prefix-for-preventing-collision,
+	$no-entering-animation: false,
+	$has-leaving-animation: false,
+	$entering-distance: null,
+	$entering-distance-x: null,
+	$entering-distance-y: null,
+	$entering-duration: null,
+	$entering-direction: null,
+	$entering-fading: null,
+	$leaving-distance: null,
+	$leaving-distance-x: null,
+	$leaving-distance-y: null,
+	$leaving-duration: null,
+	$leaving-direction: null,
+	$leaving-fading: "fade-out"
+	) {
+
+	@if ((not $no-entering-animation) and $has-leaving-animation) {
+		@if type-of($entering-distance) == 'number' {
+			@if not $leaving-distance { $leaving-distance: $entering-distance; }
+		}
+
+		@if type-of($entering-distance-x) == 'number' {
+			@if not $leaving-distance-x { $leaving-distance-x: $entering-distance-x; }
+		}
+
+		@if type-of($entering-distance-y) == 'number' {
+			@if not $leaving-distance-y { $leaving-distance-y: $entering-distance-y; }
+		}
+
+
+
+		@if type-of($leaving-distance) == 'number' {
+			@if not $entering-distance { $entering-distance: $leaving-distance; }
+		}
+
+		@if type-of($leaving-distance-x) == 'number' {
+			@if not $entering-distance-x { $entering-distance-x: $leaving-distance-x; }
+		}
+
+		@if type-of($leaving-distance-y) == 'number' {
+			@if not $entering-distance-y { $entering-distance-y: $leaving-distance-y; }
+		}
+	}
+
+	&.acting {
+		@if not $no-entering-animation {
+			&.entering {
+				@include -wlc-animation-moving-2d(
+					$animation-name: $prefix-for-preventing-collision + "-enter-stage",
+					$duration: $entering-duration,
+					$distance: $entering-distance,
+					$distance-x: $entering-distance-x,
+					$distance-y: $entering-distance-y,
+					$direction: $entering-direction,
+					$fading: $entering-fading
+				);
+			}
+		}
+
+		@if $has-leaving-animation {
+			&.leaving {
+				@include -wlc-animation-moving-2d(
+					$animation-name: $prefix-for-preventing-collision + "-leave-stage",
+					$duration: $leaving-duration,
+					$distance: $leaving-distance,
+					$distance-x: $leaving-distance-x,
+					$distance-y: $leaving-distance-y,
+					$direction: $leaving-direction,
+					$fading: $leaving-fading
+				);
+			}
+		}
+	}
+}
