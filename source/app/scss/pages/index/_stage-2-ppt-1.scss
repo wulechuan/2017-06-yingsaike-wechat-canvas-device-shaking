@@ -124,10 +124,52 @@ $actor-name: null;
 
         $actor-name: 'hero-bulb-beam';
         .locator.#{$actor-name} {
-            .actor {
-                left: 0;
-                right: 0;
+            & > .actor {
+                left: -0.12rem;
                 bottom: 0;
+                width: 0.24rem;
+                height: 1.5rem;
+                border-radius: 1rem;
+                background-color: pink;
+
+                animation-delay: 1s;
+
+                @include -insaic-actor-with-standard-animation(
+                    $page-name + '-' + $actor-name,
+                    $entering-distance: 1rem,
+                    $entering-direction: 'up'
+                );
+            }
+        }
+    }
+
+
+
+    $bg-actor-delay: 0.3s;
+    $bg-actor-delay-delta: 0.09s;
+    $bg-actor-duration: 0.6s;
+
+
+    .bgs .actors .locator {
+        & > .actor {
+            height: 10rem;
+            background-position: center;
+            background-size: 100% auto;
+        }
+
+        $actor-name: 'pencil-1';
+        $actor-width: 4rem;
+        &.#{$actor-name} {
+            @include -insaic-locator-2d(
+                $left: 2rem, $top: 0, $rotation: 12
+            );
+
+            & > .actor {
+                left: -0.5 * $actor-width;
+                top: 0;
+                width: $actor-width;
+                // height: 4rem;
+                background-image: url(images/ppt-1-#{$actor-name}.png);
 
                 @include -insaic-actor-with-standard-animation(
                     $page-name + '-' + $actor-name,
@@ -136,20 +178,120 @@ $actor-name: null;
                 );
             }
         }
-    }
 
 
-
-    $actor-name: 'actor-pencil-1';
-    .locator.#{$actor-name} {
-        @include -insaic-locator-2d($left: 0, $top: 0, $rotation: 12);
-
-        .actor.#{$actor-name} {
-            @include -insaic-actor-with-standard-animation(
-                $page-name + '-' + $actor-name,
-                $entering-distance: 1rem,
-                $entering-direction: 90
+        $actor-name: 'pencil-2';
+        $actor-width: 4rem;
+        &.#{$actor-name} {
+            @include -insaic-locator-2d(
+                $right: 2rem, $top: 3rem, $rotation: 120
             );
+
+            & > .actor {
+                left: -0.5 * $actor-width;
+                top: 0;
+                width: $actor-width;
+                // height: 4rem;
+                background-image: url(images/ppt-1-#{$actor-name}.png);
+
+                @include -insaic-actor-with-standard-animation(
+                    $page-name + '-' + $actor-name,
+                    $entering-distance: 1rem,
+                    $entering-direction: 90
+                );
+            }
+        }
+
+
+        $actor-name: 'rank';
+        $actor-width: 4rem;
+        &.#{$actor-name} {
+            @include -insaic-locator-2d(
+                $right: 2rem, $top: 3rem, $rotation: 120
+            );
+
+            & > .actor {
+                left: -0.5 * $actor-width;
+                top: 0;
+                width: $actor-width;
+                // height: 4rem;
+                background-image: url(images/ppt-1-#{$actor-name}.png);
+
+                @include -insaic-actor-with-standard-animation(
+                    $page-name + '-' + $actor-name,
+                    $entering-distance: 1rem,
+                    $entering-direction: 90
+                );
+            }
+        }
+
+
+        $actor-name: 'atom';
+        $actor-width: 4rem;
+        &.#{$actor-name} {
+            @include -insaic-locator-2d(
+                $right: 2rem, $bottom: 3rem, $rotation: 120
+            );
+
+            & > .actor {
+                left: -0.5 * $actor-width;
+                top: 0;
+                width: $actor-width;
+                // height: 4rem;
+                background-image: url(images/ppt-1-#{$actor-name}.png);
+
+                @include -insaic-actor-with-standard-animation(
+                    $page-name + '-' + $actor-name,
+                    $entering-distance: 1rem,
+                    $entering-direction: 90
+                );
+            }
+        }
+
+
+        $actor-name: 'business';
+        $actor-width: 4rem;
+        &.#{$actor-name} {
+            @include -insaic-locator-2d(
+                $right: 2rem, $bottom: 3rem, $rotation: 120
+            );
+
+            & > .actor {
+                left: -0.5 * $actor-width;
+                top: 0;
+                width: $actor-width;
+                // height: 4rem;
+                background-image: url(images/ppt-1-#{$actor-name}.png);
+
+                @include -insaic-actor-with-standard-animation(
+                    $page-name + '-' + $actor-name,
+                    $entering-distance: 1rem,
+                    $entering-direction: 90
+                );
+            }
+        }
+
+
+        $actor-name: 'small-bulb-and-idea';
+        $actor-width: 4rem;
+        &.#{$actor-name} {
+            @include -insaic-locator-2d(
+                $right: 2rem, $bottom: 3rem, $rotation: 120
+            );
+
+            & > .actor {
+                left: -0.5 * $actor-width;
+                top: 0;
+                width: $actor-width;
+                // height: 4rem;
+                background-image: url(images/ppt-1-#{$actor-name}.png);
+
+                @include -insaic-actor-with-standard-animation(
+                    $page-name + '-' + $actor-name,
+                    $entering-distance: 1rem,
+                    $entering-direction: 90
+                );
+            }
         }
     }
 }
