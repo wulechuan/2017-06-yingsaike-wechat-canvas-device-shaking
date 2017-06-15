@@ -2,27 +2,116 @@ $page-name: 'page-2';
 $actor-name: null;
 
 .ppt-#{$page-name} {
-    $actor-name: 'actor-tree';
-    .actor.#{$actor-name} {
-        @include -insaic-actor-with-standard-animation(
-            $page-name + '-' + $actor-name,
-            $entering-distance: 12rem,
-            $entering-direction: 90
-        );
+    .bg-circuit-borad {
+        z-index: 2;
+        left: 0;
+        right: 0;
+        top: 0;
+        margin: 0;
+        background-size: 100% auto;
+        background-position: top;
+        background-image: url(images/ppt-2-circuit-borad.png);
     }
 
 
+    $hanging-sphere-rope-length: 10rem;
+    $hanging-sphere-element-size: 16rem;
+    $hanging-sphere-content-size: 0.75 * $hanging-sphere-element-size;
 
-    $actor-name: 'actor-nail-1';
-    .locator.#{$actor-name}-locator {
-        @include -insaic-locator-2d($left: 0, $top: 0, $rotation: 12);
+    $actor-name: 'hanging-sphere-position';
+    .locator.actor.#{$actor-name} {
+        z-index: 5;
 
-        .actor.#{$actor-name} {
-            @include -insaic-actor-with-standard-animation(
-                $page-name + '-' + $actor-name,
-                $entering-distance: 1rem,
-                $entering-direction: 90
-            );
+        left: 50%;
+        top: -0.5 * $hanging-sphere-rope-length;
+
+        @keyframes #{$page-name}-#{$actor-name}-locator-entering {
+            0%   { transform: translateY(-40rem); }
+            100% { transform: translateY(0); }
+        }
+
+        &.acting.entering {
+            animation-delay: 0.2s;
+            animation-duration: 1.2s;
+            animation-fill-mode: both;
+            animation-name: #{$page-name}-#{$actor-name}-locator-entering;
+        }
+
+
+
+        $actor-name: 'hanging-sphere-rotation';
+        .locator.actor.#{$actor-name} {
+            left: 0;
+            top: 0;
+
+
+            @keyframes #{$page-name}-#{$actor-name}-locator-entering {
+                0%   { transform: rotateZ(   25deg); }
+                10%  { transform: rotateZ(-18.5deg); }
+                20%  { transform: rotateZ( 10.5deg); }
+                30%  { transform: rotateZ(   -7deg); }
+                40%  { transform: rotateZ(  4.6deg); }
+                50%  { transform: rotateZ( -2.9deg); }
+                60%  { transform: rotateZ(  1.5deg); }
+                70%  { transform: rotateZ( -1.0deg); }
+                80%  { transform: rotateZ(  0.6deg); }
+                90%  { transform: rotateZ( -0.3deg); }
+                100% { transform: rotateZ(    0); }
+            }
+
+            &.acting.entering {
+                animation-delay: 0.64s;
+                animation-duration: 2.6s;
+                animation-fill-mode: both;
+                animation-timing-function: linear;
+                animation-name: #{$page-name}-#{$actor-name}-locator-entering;
+            }
+
+
+            .hanging-rope {
+                display: block;
+                width: 0.2rem;
+                height: $hanging-sphere-rope-length;
+
+                position: absolute;
+                top: 0;
+                left: -0.1rem;
+            }
+
+            .locator.sphere-locator {
+                position: absolute;
+                top: $hanging-sphere-rope-length + 0.5 * $hanging-sphere-content-size;
+                left: -0.5 * $hanging-sphere-element-size;
+
+                .sphere {
+                    width: $hanging-sphere-element-size;
+                    height: $hanging-sphere-element-size;
+                    background-image: url(images/ppt-2-sphere.png);
+                }
+
+                .sphere-deco {
+                    width: $hanging-sphere-element-size;
+                    height: $hanging-sphere-element-size;
+                    background-image: url(images/ppt-2-sphere-with-deco.png);
+                }
+            }
         }
     }
+
+
+
+
+    // $actor-name: 'do-you-know';
+    // .#{$actor-name} {
+    //     @include -insaic-locator-2d($left: 0, $top: 0, $rotation: 12);
+
+    //     .actor.#{$actor-name} {
+    //         @include -insaic-actor-with-standard-animation(
+    //             $page-name + '-' + $actor-name,
+    //             $entering-distance: 1rem,
+    //             $entering-direction: 90
+    //         );
+    //     }
+    // }
+    
 }

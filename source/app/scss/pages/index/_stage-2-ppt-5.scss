@@ -1,0 +1,228 @@
+$page-name: 'page-5';
+$actor-name: null;
+
+.ppt-#{$page-name} {
+	& > .fp-tableCell > .content,
+	& > .content {
+		font-size: 0.6rem;
+		letter-spacing: 0.15em;
+
+		&::after {
+			content: '';
+			display: block;
+			height: 5.4rem;
+
+			z-index: 10;
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
+
+			background-image: linear-gradient(to top, black 40%, transparent);
+		}
+	}
+
+
+	$actor-name: 'title';
+	h2 {
+		position: relative;
+		height: 1.6rem;
+		margin-bottom: 0.2rem;
+		padding-left: 0.25rem;
+		
+		.actor.#{$actor-name} {
+			opacity: 0;
+			position: relative;
+			width: 88%;
+			height: 100%;
+			background-position: left top;
+			background-size: contain;
+			background-image: url(images/ppt-5-title.png);
+
+			@include -insaic-actor-with-standard-animation(
+				$page-name + '-' + $actor-name,
+				$entering-distance: 2rem,
+				$entering-duration: 0.6s,
+				$entering-direction: 'up'
+			);
+		}
+	}
+
+
+	$actor-name: 'insaic-history';
+	.insaic-history {
+		margin-bottom: 1rem;
+
+		.ofbl {
+			display: inline;
+		}
+
+		&.actor {
+			position: relative;
+			opacity: 0;
+
+			&.acting.entering {
+				animation-delay: 0.2s;
+			}
+
+			@include -insaic-actor-with-standard-animation(
+				$page-name + '-' + $actor-name,
+				$entering-distance: 2rem,
+				$entering-duration: 0.6s,
+				$entering-direction: 'up'
+			);
+		}
+	}
+
+	dl.insaic-events {
+		dt {
+			font-size: 0.9rem;
+			margin-bottom: 0.25rem;
+			letter-spacing: 0.1em;
+		}
+	}
+}
+
+.timeline {
+	// position: relative;
+	padding-left: 0.6rem;
+
+	.timeline-node {
+		position: relative;
+		padding-bottom: 1.5rem;
+		padding-left: 1rem;
+		// margin-left: -0.5rem;
+
+		$timeline-node-dot-delay: .5s;
+		$timeline-node-dot-duration: 0.58s;
+		$timeline-node-line-delay-delta: -0.62s;
+		$timeline-node-line-delay: null;
+		$timeline-node-line-duration: 0.4s;
+		$timeline-node-dot-delay-delta: 0.05s;
+
+		$timeline-node-dot-size: 0.44rem;
+		$timeline-node-element-offset-y: 0.5rem;
+
+		.node-dot {
+			@keyframes timeline-node-dot-show-up {
+				0%   { opacity: 0; transform: scale(0, 0); }
+				52%  { opacity: 1; transform: scale(1.08, 1.08); }
+				100% { opacity: 1; transform: scale(1, 1); }
+			}
+
+			opacity: 0;
+			display: block;
+			box-sizing: border-box;
+			width: $timeline-node-dot-size;
+			height: $timeline-node-dot-size;
+			border-radius: 50%;
+			font-size: 0;
+			line-height: 0;
+
+			position: absolute;
+			left: 0;
+			top: $timeline-node-element-offset-y;
+			margin: -0.5 * $timeline-node-dot-size;
+
+			background-color: rgba(#ffcc33, 0.8);
+			box-shadow: 0 0 0 0.2rem rgba(#4b7a81, 0.6);
+
+			&.actor.acting.entering {
+				animation-name: timeline-node-dot-show-up;
+				animation-duration: $timeline-node-dot-duration;
+				// animation-timing-function: ease-in-out;
+				animation-timing-function: linear;
+				animation-fill-mode: both;
+			}
+		}
+
+
+		.node-line {
+			@keyframes timeline-node-line-show-up {
+				0%   { opacity: 0; transform: scale(1, 0); }
+				30%  { opacity: 1; }
+				100% { opacity: 1; transform: scale(1, 1); }
+			}
+
+			opacity: 0;
+			display: block;
+			box-sizing: border-box;
+			width: 0.1rem;
+			border-radius: 50%;
+			font-size: 0;
+			line-height: 0;
+
+			position: absolute;
+			left: 0;
+			top: 0.5 * $timeline-node-dot-size + $timeline-node-element-offset-y;
+			bottom: 0.5 * $timeline-node-dot-size - $timeline-node-element-offset-y;
+			margin: 0 -0.05rem;
+
+			transform-origin: top;
+			background-color: rgba(white, 0.6);
+
+			&.actor.acting.entering {
+				opacity: 0;
+				animation-name: timeline-node-line-show-up;
+				animation-duration: $timeline-node-line-duration;
+				animation-timing-function: ease-in-out;
+				animation-fill-mode: both;
+			}
+		}
+
+
+
+		@for $i from 1 through 7 {
+			&:nth-child(#{$i}) {
+				
+				.node-dot {
+					animation-delay:  $timeline-node-dot-delay;
+				}
+				$timeline-node-line-delay: $timeline-node-dot-delay + $timeline-node-dot-duration + $timeline-node-line-delay-delta;
+
+
+				$actor-name: 'dt';
+				dt.actor {
+					opacity: 0;
+					position: relative;
+
+					&.acting.entering {
+						animation-delay: $timeline-node-dot-delay + 0.1s;
+					}
+
+					@include -insaic-actor-with-standard-animation(
+						$page-name + '-' + $actor-name,
+						$entering-distance: 4rem,
+						$entering-duration: 0.51s,
+						$entering-direction: 'left'
+					);
+				}
+
+
+
+				$actor-name: 'dd';
+				dd.actor {
+					opacity: 0;
+					position: relative;
+
+					&.acting.entering {
+						animation-delay: $timeline-node-dot-delay + 0.26s;
+					}
+
+					@include -insaic-actor-with-standard-animation(
+						$page-name + '-' + $actor-name,
+						$entering-distance: 4rem,
+						$entering-duration: 0.46s,
+						$entering-direction: 'left'
+					);
+				}
+
+
+				.node-line {
+					animation-delay:  $timeline-node-line-delay;
+				}
+				$timeline-node-dot-delay: $timeline-node-line-delay + $timeline-node-line-duration + $timeline-node-dot-delay-delta;
+			}
+		}
+	}
+}

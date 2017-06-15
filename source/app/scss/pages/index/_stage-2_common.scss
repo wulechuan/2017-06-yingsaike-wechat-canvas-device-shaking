@@ -37,6 +37,16 @@
 	}
 
 
+	.alternative-text {
+		display: block;
+		width: 0;
+		height: 0;
+		overflow: hidden;
+		opacity: 0;
+	}
+
+
+
 	$swiping-hint-color: #4589de;
 	$swiping-animation-time: 3s;
 	$swiping-hint-chief-icon-animation-delay: 0.6s;

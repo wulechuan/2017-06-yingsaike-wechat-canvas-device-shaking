@@ -69,7 +69,7 @@ html, body {
 
 	& > .fp-tableCell > .content, // for fullpage.js which automatically insert <div>s.
 	& > .content {
-		padding: 2rem;
+		padding: 2rem 1rem;
 
 		&, & * {
 			-webkit-transition-property: visibility, opacity, color, border-color, background, width, height, max-width, min-width, max-height, min-height, transform, left, right, top, bottom, margin, padding, border-radius;
@@ -77,6 +77,17 @@ html, body {
 			-webkit-transition-duration: 0.3s;
 					transition-duration: 0.3s;
 				-ms-transition-duration: 0.3s;
+		}
+
+		& > .scrollable {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			margin: 2rem 0;
+			padding: 0 1rem 8rem;
+			overflow: auto;
 		}
 	}
 }

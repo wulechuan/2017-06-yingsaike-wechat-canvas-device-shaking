@@ -1,0 +1,177 @@
+$page-name: 'page-4';
+$actor-name: null;
+
+.ppt-#{$page-name} {
+	& > .fp-tableCell > .content,
+	& > .content {
+		font-size: 0.7rem;
+		letter-spacing: 0.1em;
+	}
+
+
+	$actor-name: 'title';
+	h2 {
+		position: relative;
+        width: 4.5rem;
+		height: 4.5rem;
+        line-height: 4.5rem;
+		margin: 0 auto 1rem;
+
+        font-size: 1.2rem;
+		
+		&.actor.#{$actor-name} {
+			opacity: 0;
+			background-position: center;
+			background-size: contain;
+			background-image: url(images/badge.png);
+
+			@include -insaic-actor-with-standard-animation(
+				$page-name + '-' + $actor-name,
+				$entering-distance: 2rem,
+				$entering-duration: 0.6s,
+				$entering-direction: 'up'
+			);
+		}
+	}
+
+
+	$actor-name: 'brand-intro';
+	.brand-intro {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 5%;
+        margin: 0 1rem;
+		text-align: center;
+        line-height: 2.1;
+
+		&.actor {
+			position: relative;
+			opacity: 0;
+
+			&.acting.entering {
+				animation-delay: 0.2s;
+			}
+
+			@include -insaic-actor-with-standard-animation(
+				$page-name + '-' + $actor-name,
+				$entering-distance: 2rem,
+				$entering-duration: 0.6s,
+				$entering-direction: 'up'
+			);
+		}
+	}
+
+	.logos {
+        padding: 0;
+        list-style: none;
+        height: 4rem;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 20%;
+        margin: auto 1rem;
+        text-align: center;
+
+        & > hr.verticle {
+            position: absolute;
+            top: 0;
+            width: 1px;
+            margin: 0;
+            border: 0;
+            height: 100%;
+
+            background-color: rgba(white, 0.3);
+
+
+            &:nth-of-type(1) {
+                left: 31%;
+            }
+
+            &:nth-of-type(2) {
+                right: 31%;
+            }
+
+            &.actor {
+                opacity: 0;
+
+                @keyframes #{page-name}-logo-divider-show-up {
+                    0% { opacity: 0; }
+                    to { opacity: 1; }
+                }
+
+                &.acting.entering {
+                    animation-name: #{page-name}-logo-divider-show-up;
+                    animation-duration: 3s;
+                    animation-delay: 1s;
+                    animation-fill-mode: both;
+                }
+            }
+        }
+
+        .logo {
+            width: 25%;
+            margin: 0 -12.5%;
+            height: 100%;
+
+            position: absolute;
+            top: 0;
+
+            background-position: center;
+            background-size: contain;
+
+            label {
+                overflow: hidden;
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+
+            &.actor {
+                opacity: 0;
+
+                @keyframes #{page-name}-logo-show-up {
+                    0% { opacity: 0; }
+                    to { opacity: 1; }
+                }
+
+                &.acting.entering {
+                    animation-name: #{page-name}-logo-show-up;
+                    animation-duration: 2s;
+                    animation-fill-mode: both;
+                }
+            }
+
+
+            &.logo-saic-motor {
+                left: 50%;
+                background-image: url(images/logo-saic-motor.png);
+
+                &.acting.entering {
+                    animation-delay: 1s;
+                }
+            }
+
+            &.logo-saic-gm {
+                left: 14%;
+                background-image: url(images/logo-saic-gm.png);
+
+
+                &.acting.entering {
+                    animation-delay: 1.3s;
+                }
+            }
+
+            &.logo-saic-vw {
+                right: 14%;
+                background-image: url(images/logo-saic-vw.png);
+
+
+                &.acting.entering {
+                    animation-delay: 1.3s;
+                }
+            }
+        }
+	}
+}

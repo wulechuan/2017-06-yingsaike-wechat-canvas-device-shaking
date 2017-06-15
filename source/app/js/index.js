@@ -182,39 +182,36 @@
 		},
 
 		setupFullPage: function () {
-			var lastShownSlide = -1;
 			var $root = $(this.elements.root);
 			var $slides = $root.find('.ppt-pages-container .ppt-page');
-			// console.log($slides);
-			
+
 			$root.find('.ppt-pages-container').fullpage({
 				sectionSelector: '.ppt-page',
-				// slideSelector: '',
+				normalScrollElements: '.fp-scrollable',
 
-				lazyLoading: false,
+				// lazyLoading: false,
 				dragAndMove: false,
 				autoScrolling: true,
 				loop: false,
-				// onLeave: function(index, nextIndex, direction){},
-				afterLoad: onFullPageJsPageLoaded,
+
+				onLeave: onLeave,
+				afterLoad: afterLoad,
 				// afterRender: function(){},
 				// afterResize: function(){},
 				// afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex){},
 				// onSlideLeave: function(anchorLink, index, slideIndex, direction, nextSlideIndex){}
 			});
 
-			function onFullPageJsPageLoaded(anchorLink, index) {
+			function afterLoad(anchorLink, index) {
 				$($slides[index-1]).find('.actor')
 					.removeClass('leaving')
 					.addClass('acting entering');
+			}
 
-				if (lastShownSlide>=0) {
-					$(lastShownSlide).find('.actor')
-						.removeClass('entering')
-						.addClass('acting leaving');
-				}
-
-				lastShownSlide = index;
+			function onLeave(index, nextIndex, direction) {
+				$($slides[index-1]).find('.actor')
+					.removeClass('entering')
+					.addClass('acting leaving');
 			}
 		},
 
@@ -297,5 +294,5 @@
 
 
 	app.init();
-	// app.showStage(2);
+	app.showStage(2);
 });

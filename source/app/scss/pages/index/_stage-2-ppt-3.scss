@@ -1,0 +1,251 @@
+$page-name: 'page-3';
+$actor-name: null;
+
+.ppt-#{$page-name} {
+	& > .fp-tableCell > .content,
+	& > .content {
+		font-size: 0.7rem;
+		letter-spacing: 0.1em;
+	}
+
+
+	$actor-name: 'title';
+	h2 {
+		position: relative;
+        width: 100%;
+		height: 2rem;
+        margin-bottom: 1rem;
+
+        font-size: 1.2rem;
+		
+		.actor.#{$actor-name} {
+			opacity: 0;
+
+            width: 100%;
+            height: 100%;
+			background-position: left;
+			background-size: contain;
+			background-image: url(images/ppt-3-title.png);
+
+			@include -insaic-actor-with-standard-animation(
+				$page-name + '-' + $actor-name,
+				$entering-distance: 6rem,
+				$entering-duration: 0.63s,
+				$entering-direction: 'left'
+			);
+		}
+	}
+
+
+	$actor-name: 'principles';
+	.principles {
+		letter-spacing: 0;
+
+        h3 {
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            margin-right: 0.2rem;
+        }
+
+        h3 .actor,
+        p.actor {
+            text-align: center;
+            display: block;
+			position: relative;
+			opacity: 0;
+
+			@include -insaic-actor-with-standard-animation(
+				$page-name + '-' + $actor-name,
+				$entering-distance: 5rem,
+				$entering-duration: 0.6s,
+				$entering-direction: 'left'
+			);
+		}
+
+        h3 .actor.text {
+			&.acting.entering {
+                animation-delay: 0.3s;
+			}
+        }
+
+        p.actor {
+			&.acting.entering {
+
+                &:nth-of-type(1) {
+                    animation-delay: 0.6s;
+                }
+
+                &:nth-of-type(2) {
+                    animation-delay: 0.7s;
+                }
+			}
+        }
+	}
+
+
+	$actor-name: 'core-values';
+	.core-values {
+        margin: 1rem auto;
+        position: relative;
+        text-align: right;
+
+        .headers {
+            position: absolute;
+            left: 0;
+            top: 2.1rem;
+            text-align: center;
+            color: #f3ca43;
+
+            h3 {
+                font-size: 0.8rem;
+                margin-bottom: 0.5rem;
+            }
+
+            h4 {
+                font-size: 0.6rem;
+            }
+        }
+
+        .actor {
+			position: relative;
+			opacity: 0;
+
+			@include -insaic-actor-with-standard-animation(
+				$page-name + '-' + $actor-name,
+				$entering-distance: 5rem,
+				$entering-duration: 0.6s,
+				$entering-direction: 'left'
+			);
+		}
+
+        h3.actor,
+        h4.actor {
+            display: block;
+        }
+
+        h3.actor {
+			&.acting.entering {
+                animation-delay: 0.9s;
+			}
+        }
+
+        h4.actor {
+			&.acting.entering {
+                animation-delay: 1.1s;
+			}
+        }
+
+
+        ul {
+            text-align: right;
+            display: inline-block;
+            padding-left: 0;
+            list-style: none;
+
+            & > hr {
+                position: relative;
+                border: 0;
+                height: 1px;
+                background-color: rgba(white, .3);
+
+                &.actor {
+                    opacity: 0;
+
+                    @include -insaic-actor-with-standard-animation(
+                        $page-name + '-' + $actor-name + '-line',
+                        $entering-distance: 8rem,
+                        $entering-duration: 0.4s,
+                        $entering-direction: 'right'
+                    );
+
+                    &.acting.entering {
+                        &:nth-of-type(1) {
+                            animation-delay: 0.5s;
+                        }
+                        &:nth-of-type(2) {
+                            animation-delay: 0.8s;
+                        }
+                    }
+                }
+            }
+
+            li {
+                text-align: right;
+                width: auto;
+                display: inline-block;
+                vertical-align: top;
+                margin: 0.6rem 2rem 0.6rem 0;
+
+                &:nth-of-type(2n) {
+                    margin-right: 0;
+                }
+
+                &.actor {
+                    $core-values-list-item-delay: 1.2s;
+                    $core-values-list-item-delay-delta: 0.21s;
+
+                    &.acting.entering {
+
+                        @for $i from 1 through 6 {
+                            &:nth-of-type(#{$i}) {
+                                animation-delay: $core-values-list-item-delay;
+                            }
+
+                            $core-values-list-item-delay: $core-values-list-item-delay + $core-values-list-item-delay-delta;
+                        }
+                    }
+                }
+            }
+        }
+	}
+
+
+	$actor-name: 'bottom-line';
+    $bottom-line-animation-delay: 3s;
+    .bottom-line {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 6.5rem;
+        margin: 0 1rem;
+        text-align: center;
+
+        .actor {
+            position: relative;
+            display: block;
+			opacity: 0;
+        }
+
+        h3 {
+            margin-bottom: 0.3rem;
+
+            &.actor {
+                &.acting.entering {
+                    animation-delay: $bottom-line-animation-delay;
+                }
+
+                @include -insaic-actor-with-standard-animation(
+                    $page-name + '-' + $actor-name + '-h3',
+                    $entering-distance: 4rem,
+                    $entering-duration: 0.7s,
+                    $entering-direction: 'right'
+                );
+            }
+        }
+
+        p {
+            &.actor {
+                &.acting.entering {
+                    animation-delay: 0.1s + $bottom-line-animation-delay;
+                }
+
+                @include -insaic-actor-with-standard-animation(
+                    $page-name + '-' + $actor-name + '-p',
+                    $entering-distance: 4rem,
+                    $entering-duration: 0.7s,
+                    $entering-direction: 'left'
+                );
+            }
+        }
+    }
+}
