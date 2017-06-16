@@ -1,6 +1,10 @@
 (function (createWhatWeWant) {
 	window.CanvasStarryNight2D = createWhatWeWant();
 })(function createWhatWeWant() {
+	function randomBetween(a, b) {
+		return Math.random() * (a - b) + b;
+	}
+
 	function CanvasStarryNight2D(canvas, constructorOptions) {
 		var thisNight = this;
 
@@ -113,17 +117,59 @@
 	function Star(canvas, constructorOptions) {
 		var thisStar = this;
 
+		// old shit
 		var canvasWidth = 0;
 		// var canvasHeight = 0;
-		var canvasContext = null;
+		var speed = Math.random() * .05;
 
-		var color = 'white';
-		var size = 0;
+
+		// static constants
+		var baseSizeMin = 0.2;
+		var baseSizeMax = 1.5;
+		var shiningSizeFactorMin = 1.1;
+		var shiningSizeFactorMax = 2.0;
+
+		var levelMin = 0.3;
+		var levelMax = 5;
+
+		var hueAllowedRanges = [
+			[0.05, 0.28],
+			[0.52, 0.93]
+		];
+		var saturationPercentageMin = 1;
+		var saturationPercentageMax = 30;
+
+		var singleBlinkingDurationMin = 1.1;
+		var singleBlinkingDurationMax = 12;
+		var minBlinkingCountDuringCurrentBlinkingPeriod = 1;
+		var maxBlinkingCountDuringCurrentBlinkingPeriod = 8;
+		var minDurationToWaitForNextBlinkingPeriod = 2;   // time in seconds
+		var maxDurationToWaitForNextBlinkingPeriod = 200; // time in seconds
+
+
+
+		// private variables
+		var hueDegree = 0.79;
+		var saturationPercentage = saturationPercentageMin;
+
+		var baseSize = baseSizeMin;
+		var shiningSize = baseSizeMin * shiningSizeFactorMin;
+		var currentSize = baseSizeMin;
+		var currentShiningFraction = 0;
+
+		var baseLevel = levelMin;
+		var shiningLevel = levelMin;
+		var currentOpacity = 0;
+
+		var currentSingleBlinkingDuration = NaN;
+		var currentBlinkingCount = NaN;
+		var startTimeOfCurrentBlinkingPeriod = NaN;
+		var currentValueOfDurationToWaitForNextBlinkingPeriod = NaN;
 
 		var x = 0;
 		var y = 0;
 
-		var speed = Math.random() * .05;
+		var canvasContext = null;
 
 		thisStar.draw = draw.bind(thisStar);
 
@@ -148,10 +194,77 @@
 			}
 
 			// color = initOptions.color;
-			size = Math.random() * 2;
+			currentSize = Math.random() * 2;
 
 			x = Math.random() * canvas.width;
 			y = Math.random() * canvas.height;
+
+			config(initOptions);
+		}
+
+		function config(options) {
+			decideStaticLook();
+		}
+
+		function decideStaticLook() {
+			decideSize();
+			decideLevel();
+			decideColor();
+			renewShiningBehaviour();
+		}
+
+		function decideSize() {
+			baseSize = randomBetween(baseSizeMin, baseSizeMax);
+			shiningSize = baseSize * randomBetween(
+				shiningSizeFactorMin, shiningSizeFactorMax
+			);
+		}
+
+		function decideLevel() {
+			baseLevel = randomBetween(levelMin, levelMax);
+			shiningLevel = randomBetween(baseLevel, levelMax);
+		}
+
+		function decideColor() {
+			decideHue();
+			decideSaturation();
+		}
+
+		function decideSaturation() {
+			saturationPercentage = randomBetween(
+				saturationPercentageMin,
+				saturationPercentageMax
+			);
+		}
+
+		function decideHue() {
+			var availableRangesCount = hueAllowedRanges.length;
+			var hueRangeIndex = Math.floor(randomBetween(0, availableRangesCount));
+			var hue = randomBetween(
+				hueAllowedRanges[hueRangeIndex][0],
+				hueAllowedRanges[hueRangeIndex][1]
+			);
+
+			hueDegree = hue * 360;
+			return hueDegree;
+		}
+
+		function renewShiningBehaviour(localTimeInSeconds) {
+			currentSingleBlinkingDuration = randomBetween(
+				singleBlinkingDurationMin,
+				singleBlinkingDurationMax
+			);
+
+			currentDurationOfCurrentBlinkingBehaviour = randomBetween(
+				minBlinkingCountDuringCurrentBlinkingPeriod,
+				maxBlinkingCountDuringCurrentBlinkingPeriod
+			);
+
+			currentDurationStartTimeOfCurrentBlinkingBehaviour = localTimeInSeconds;
+		}
+
+		function evaluateCurrentLevelAndOpacity(localTimeInSeconds) {
+
 		}
 
 		function draw(localTimeInSeconds) {
@@ -160,7 +273,7 @@
 				x = canvasWidth;
 			} else {
 				canvasContext.fillStyle = color;
-				canvasContext.fillRect(x, y, size, size);
+				canvasContext.fillRect(x, y, currentSize, currentSize);
 			}
 		}
 	}
