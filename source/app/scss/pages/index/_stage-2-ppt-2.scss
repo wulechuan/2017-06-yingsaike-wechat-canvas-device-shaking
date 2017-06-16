@@ -50,16 +50,16 @@ $page-name: 'page-2';
                 left: -0.5 * $hanging-sphere-element-size;
 
                 @keyframes #{$page-name}-#{$actor-name}-locator-entering {
-                    0%   { opacity: 0; transform: translateY(    8rem); }
-                    40%  { opacity: 1; transform: translateY( -0.6rem); }
-                    60%  {             transform: translateY( 0.26rem); }
-                    80%  {             transform: translateY(-0.08rem); }
+                    0%   { opacity: 0; transform: translateY(  5.1rem); }
+                    40%  { opacity: 1; transform: translateY(-0.45rem); }
+                    60%  {             transform: translateY( 0.23rem); }
+                    80%  {             transform: translateY(-0.05rem); }
                     100% { opacity: 1; transform: translateY(    0   ); }
                 }
 
                 &.acting.entering {
                     animation-delay: 0.2s;
-                    animation-duration: 0.7s;
+                    animation-duration: 1s;
                     animation-fill-mode: both;
                     animation-timing-function: linear;
                     animation-name: #{$page-name}-#{$actor-name}-locator-entering;
@@ -88,7 +88,7 @@ $page-name: 'page-2';
         bottom: 4rem;
         margin: 0;
 
-        color: #f3ca43;
+        color: #eaba66;
 
 
         p.rolling-items {

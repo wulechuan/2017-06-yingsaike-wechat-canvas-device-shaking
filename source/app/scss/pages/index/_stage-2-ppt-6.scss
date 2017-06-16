@@ -1,0 +1,50 @@
+$page-name: 'page-6';
+$actor-name: null;
+
+.ppt-#{$page-name} {
+
+	$actor-name: #{$page-name}-challenge;
+	.challenge {
+        top: 10%;
+        text-align: center;
+        color: #eaba66;
+        font-size: 0.9rem;
+        line-height: 2;
+
+		&.actor {
+			position: relative;
+			opacity: 0;
+
+			&.acting.entering {
+				animation-delay: 0.7s;
+			}
+
+			@include -insaic-actor-with-standard-animation(
+				$actor-name,
+				$entering-distance: 2rem,
+				$entering-duration: 0.9s,
+				$entering-direction: 'up'
+			);
+		}
+	}
+
+	$actor-name: #{$page-name}-splash-image;
+    .splash-image {
+        background-position: bottom;
+        background-size: contain;
+        background-image: url(images/ppt-6-bg.png);
+
+        &.actor {
+
+            &.acting.entering {
+                animation-delay: 0.1s;
+            }
+
+            @include -insaic-actor-with-standard-animation(
+                $actor-name,
+                $entering-distance: 0,
+                $entering-duration: 1.3s
+            );
+        }
+    }
+}

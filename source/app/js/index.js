@@ -298,8 +298,9 @@
 			var cssLengthUnit = 'rem';
 
 			var itemCount = $(selectorOfSection + ' .transformation-compensation').length;
+			var shouldSkipEnteringForFirstItem = false;
 			var shouldKeepLastItemOnStage = true;
-			var itemCountToAnimate = shouldKeepLastItemOnStage ? itemCount-1 : itemCount;
+
 
 			var itemHeight = 1.5;
 			var fontSizeRatio = 0.66; // fontSize = fontSizeRatio * itemHeigt
@@ -313,16 +314,9 @@
 			var allAnimationOverallDelay = 2; // time in seconds
 			var itemRollingDuration = 0.5; // time in seconds
 			var itemPauseDuration = 1.5; // time in seconds
-			var itemFadeInDuration = 0.3; // time in seconds
+			var itemFadeInDuration = 0.4; // time in seconds
 			var itemFadeOutDuration = 0.3; // time in seconds
 			var itemDisappearDuration = 12; // time in seconds
-			var eachItemFadeInAndStayTotalDuration = itemRollingDuration + itemPauseDuration;
-
-
-			var itemHeightCss = itemHeight + cssLengthUnit;
-
-			var itemRotationOriginOffsetZ = 2.5 * Math.ceil(itemHeight / Math.abs(Math.sin(itemRotationXDelta)));
-			var itemRotationOriginOffsetZCss = itemRotationOriginOffsetZ + cssLengthUnit;
 
 
 			var styleElementInnerHTML = _doIt();
@@ -337,6 +331,24 @@
 
 			function _doIt() {
 				var indention = '    ';
+
+				var itemCountToAnimate = itemCount + 1;
+
+				if (shouldSkipEnteringForFirstItem) {
+					itemCountToAnimate--;
+				}
+
+				if (shouldKeepLastItemOnStage) {
+					itemCountToAnimate--;
+				}
+
+				var eachItemFadeInAndStayTotalDuration = itemRollingDuration + itemPauseDuration;
+
+				var itemHeightCss = itemHeight + cssLengthUnit;
+
+				var itemRotationOriginOffsetZ = 2.5 * Math.ceil(itemHeight / Math.abs(Math.sin(itemRotationXDelta)));
+				var itemRotationOriginOffsetZCss = itemRotationOriginOffsetZ + cssLengthUnit;
+
 
 				var cssKeyframes = [];
 				var cssRules = [];
@@ -432,6 +444,9 @@
 
 					var currentDuration = 0;
 					var currentRotationX = 0;
+					if (!shouldSkipEnteringForFirstItem) {
+						currentRotationX = -itemRotationXDelta;
+					}
 
 					cssKeyframesDefinition.push(
 						_generateOneKeyFrame(1, currentDuration, currentRotationX)
@@ -743,13 +758,19 @@
 					);
 
 
-					var overallDelay = allAnimationOverallDelay + 0;
+
+
 					// animation delay for each item
+					var overallDelay = allAnimationOverallDelay + 0;
+					if (shouldSkipEnteringForFirstItem) {
+						overallDelay -= itemRollingDuration + itemPauseDuration;
+					}
+
 					for (var c = 0; c < itemCount; c++) {
 						var thisSelector = selectorOfNth + ':nth-child(' + (c+1) + ') ' + selectorBase;
 						thisSelector += '.acting.entering';
 
-						var thisDelay = overallDelay + c * eachItemFadeInAndStayTotalDuration - itemRollingDuration - itemFadeInDuration;
+						var thisDelay = overallDelay + c * eachItemFadeInAndStayTotalDuration - itemFadeInDuration * 0.25;
 
 						cssRulesForAllItems.push(indentionPrefix1 +
 							thisSelector + ' {\n'
@@ -758,7 +779,7 @@
 							'animation-delay: ' + thisDelay + 's;\n'
 						);
 
-						if (c=== itemCount-1 && shouldKeepLastItemOnStage) {
+						if (c === itemCount-1 && shouldKeepLastItemOnStage) {
 							cssRulesForAllItems.push(indentionPrefix2 +
 								'animation-name: ' + animationName + '-last-item;\n'
 							);

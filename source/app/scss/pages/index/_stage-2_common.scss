@@ -46,6 +46,15 @@
 	}
 
 
+	.actor.acting.leaving {
+		animation-name: fade-out;
+		animation-duration: 0.3s;
+		animation-fill-mode: both;
+		animation-timing-function: ease-in;
+		animation-delay: 0;
+	}
+
+
 
 	$swiping-hint-color: #4589de;
 	$swiping-animation-time: 3s;
