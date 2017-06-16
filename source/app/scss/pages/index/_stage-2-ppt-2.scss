@@ -1,5 +1,4 @@
 $page-name: 'page-2';
-$actor-name: null;
 
 .ppt-#{$page-name} {
     .bg-circuit-borad {
@@ -25,48 +24,11 @@ $actor-name: null;
         left: 50%;
         top: -0.5 * $hanging-sphere-rope-length;
 
-        @keyframes #{$page-name}-#{$actor-name}-locator-entering {
-            0%   { transform: translateY(-40rem); }
-            100% { transform: translateY(0); }
-        }
-
-        &.acting.entering {
-            animation-delay: 0.2s;
-            animation-duration: 1.2s;
-            animation-fill-mode: both;
-            animation-name: #{$page-name}-#{$actor-name}-locator-entering;
-        }
-
-
 
         $actor-name: 'hanging-sphere-rotation';
         .locator.actor.#{$actor-name} {
             left: 0;
             top: 0;
-
-
-            @keyframes #{$page-name}-#{$actor-name}-locator-entering {
-                0%   { transform: rotateZ(   25deg); }
-                10%  { transform: rotateZ(-18.5deg); }
-                20%  { transform: rotateZ( 10.5deg); }
-                30%  { transform: rotateZ(   -7deg); }
-                40%  { transform: rotateZ(  4.6deg); }
-                50%  { transform: rotateZ( -2.9deg); }
-                60%  { transform: rotateZ(  1.5deg); }
-                70%  { transform: rotateZ( -1.0deg); }
-                80%  { transform: rotateZ(  0.6deg); }
-                90%  { transform: rotateZ( -0.3deg); }
-                100% { transform: rotateZ(    0); }
-            }
-
-            &.acting.entering {
-                animation-delay: 0.64s;
-                animation-duration: 2.6s;
-                animation-fill-mode: both;
-                animation-timing-function: linear;
-                animation-name: #{$page-name}-#{$actor-name}-locator-entering;
-            }
-
 
             .hanging-rope {
                 display: block;
@@ -78,10 +40,30 @@ $actor-name: null;
                 left: -0.1rem;
             }
 
+
+
+            $actor-name: 'sphere';
             .locator.sphere-locator {
+                opacity: 0;
                 position: absolute;
                 top: $hanging-sphere-rope-length + 0.5 * $hanging-sphere-content-size;
                 left: -0.5 * $hanging-sphere-element-size;
+
+                @keyframes #{$page-name}-#{$actor-name}-locator-entering {
+                    0%   { opacity: 0; transform: translateY(    8rem); }
+                    40%  { opacity: 1; transform: translateY( -0.6rem); }
+                    60%  {             transform: translateY( 0.26rem); }
+                    80%  {             transform: translateY(-0.08rem); }
+                    100% { opacity: 1; transform: translateY(    0   ); }
+                }
+
+                &.acting.entering {
+                    animation-delay: 0.2s;
+                    animation-duration: 0.7s;
+                    animation-fill-mode: both;
+                    animation-timing-function: linear;
+                    animation-name: #{$page-name}-#{$actor-name}-locator-entering;
+                }
 
                 .sphere {
                     width: $hanging-sphere-element-size;
@@ -99,19 +81,47 @@ $actor-name: null;
     }
 
 
+    .do-you-know {
+        position: absolute;
+        left: 2rem;
+        right: 2rem;
+        bottom: 4rem;
+        margin: 0;
+
+        color: #f3ca43;
 
 
-    // $actor-name: 'do-you-know';
-    // .#{$actor-name} {
-    //     @include -insaic-locator-2d($left: 0, $top: 0, $rotation: 12);
+        p.rolling-items {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            height: 100%;
+            perspective: 5rem;
 
-    //     .actor.#{$actor-name} {
-    //         @include -insaic-actor-with-standard-animation(
-    //             $page-name + '-' + $actor-name,
-    //             $entering-distance: 1rem,
-    //             $entering-direction: 90
-    //         );
-    //     }
-    // }
-    
+            .actor, .locator {
+                display: block;
+                height: 100%;
+                left: 0;
+                right: 0;
+                top: 0;
+                transform-style: preserve-3d;
+            }
+
+
+            // .actor.all-items-rotation 和 .actor.change-opacity
+            // 的动画定义过于复杂，SASS难以实现，所以改由JavaScript生成。
+            // 详见：index.js  stage2.createPPT2RollingItemsCSSAnimations() 方法。
+            // .locator.position-locator {
+
+            //     .actor.all-items-rotation {
+
+            //         .locator.transformation-compensation {
+
+            //             .actor.change-opacity {
+            //             }
+            //         }
+            //     }
+            // }
+        }
+    }
 }
