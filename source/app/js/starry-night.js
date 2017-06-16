@@ -233,7 +233,7 @@
 			x = canvasWidth * (Math.random() * 2.5 - 0.5);
 			y = 0;
 
-			headSize = (Math.random() * 3) + 0.2;
+			headSize = (Math.random() * 3.2) + 1;
 			tailThickness = headSize * 0.4;
 
 			var tailLength = (Math.random() * 50) + 40;
@@ -256,10 +256,18 @@
 			x -= currentlyUsedSpeedX;
 			y += currentlyUsedSpeedY;
 
-			var halfHeadSize = headSize / 2;
+			var halfHeadSize = headSize / 2.6;
 
 			// draw tail
-			canvasContext.strokeStyle = tailColor;
+			var tailGradient = canvasContext.createLinearGradient(
+				x, y, x + tailLengthX, y - tailLengthY
+			);
+			tailGradient.addColorStop(0.1, headColor);
+			tailGradient.addColorStop(0.32, tailColor);
+			tailGradient.addColorStop(0.5, tailColor);
+			tailGradient.addColorStop(1, 'transparent');
+
+			canvasContext.strokeStyle = tailGradient;
 			canvasContext.lineWidth = tailThickness;
 			canvasContext.beginPath();
 			canvasContext.moveTo(x, y);

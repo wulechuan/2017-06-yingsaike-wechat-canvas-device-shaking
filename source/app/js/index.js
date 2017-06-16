@@ -244,7 +244,7 @@
 				shootingStarHeadColor: '#1ffe7f',
 				shootingStarTailColor: '#02c2ff',
 				shootingStarsCount: 3,
-				shootingStarsExpectedSpeed: 9,
+				shootingStarsExpectedSpeed: 8.7,
 				shouldDrawSky: false,
 				// drawSky: function(canvas, ctx, timeInSeconds) {
 				// 	ctx.drawImage(skySourceImg, 0, 0, canvas.width, canvas.height);
