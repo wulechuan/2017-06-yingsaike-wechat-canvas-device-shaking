@@ -23,14 +23,14 @@ $actor-name: null;
 	}
 
 
-	$actor-name: 'title';
+	$actor-name: #{$page-name}-title;
 	h2 {
 		position: relative;
 		height: 1.6rem;
 		margin-bottom: 0.2rem;
 		padding-left: 0.25rem;
 		
-		.actor.#{$actor-name} {
+		.actor.title {
 			opacity: 0;
 			position: relative;
 			width: 88%;
@@ -40,7 +40,7 @@ $actor-name: null;
 			background-image: url(images/ppt-5-title.png);
 
 			@include -insaic-actor-with-standard-animation(
-				$page-name + '-' + $actor-name,
+				$actor-name,
 				$entering-distance: 2rem,
 				$entering-duration: 0.6s,
 				$entering-direction: 'up'
@@ -49,7 +49,7 @@ $actor-name: null;
 	}
 
 
-	$actor-name: 'insaic-history';
+	$actor-name: #{$page-name}-insaic-history;
 	.insaic-history {
 		margin-bottom: 1rem;
 
@@ -66,7 +66,7 @@ $actor-name: null;
 			}
 
 			@include -insaic-actor-with-standard-animation(
-				$page-name + '-' + $actor-name,
+				$actor-name,
 				$entering-distance: 2rem,
 				$entering-duration: 0.6s,
 				$entering-direction: 'up'
@@ -74,11 +74,45 @@ $actor-name: null;
 		}
 	}
 
-	dl.insaic-events {
-		dt {
-			font-size: 0.9rem;
-			margin-bottom: 0.25rem;
-			letter-spacing: 0.1em;
+	.insaic-historic-events {
+
+		dl.timeline {
+			dt {
+				font-size: 0.9rem;
+				margin-bottom: 0.25rem;
+				letter-spacing: 0.1em;
+			}
+		}
+	}
+
+	&.should-auto-scroll-timeline {
+		.insaic-historic-events {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 5rem;
+			bottom: 0;
+			margin: 0 1rem;
+			padding-top: 1rem;
+			overflow: hidden;
+
+			dl.timeline {
+				@keyframes #{$page-name}-timeline-auto-scroll {
+					0% { transform: translateY(0); }
+					to { transform: translateY(calc(-100% + 10rem)); }
+				}
+
+				&.actor {
+					opacity: 1;
+
+					&.acting.entering {
+						animation-name: #{$page-name}-timeline-auto-scroll;
+						animation-delay: 2s;
+						animation-duration: 15s;
+						animation-fill-mode: both;
+					}
+				}
+			}
 		}
 	}
 }
@@ -104,7 +138,7 @@ $actor-name: null;
 		$timeline-node-element-offset-y: 0.5rem;
 
 		.node-dot {
-			@keyframes timeline-node-dot-show-up {
+			@keyframes #{$page-name}-timeline-node-dot-show-up {
 				0%   { opacity: 0; transform: scale(0, 0); }
 				52%  { opacity: 1; transform: scale(1.08, 1.08); }
 				100% { opacity: 1; transform: scale(1, 1); }
@@ -128,7 +162,7 @@ $actor-name: null;
 			box-shadow: 0 0 0 0.2rem rgba(#4b7a81, 0.6);
 
 			&.actor.acting.entering {
-				animation-name: timeline-node-dot-show-up;
+				animation-name: #{$page-name}-timeline-node-dot-show-up;
 				animation-duration: $timeline-node-dot-duration;
 				// animation-timing-function: ease-in-out;
 				animation-timing-function: linear;
@@ -138,7 +172,7 @@ $actor-name: null;
 
 
 		.node-line {
-			@keyframes timeline-node-line-show-up {
+			@keyframes #{$page-name}-timeline-node-line-show-up {
 				0%   { opacity: 0; transform: scale(1, 0); }
 				30%  { opacity: 1; }
 				100% { opacity: 1; transform: scale(1, 1); }
@@ -163,7 +197,7 @@ $actor-name: null;
 
 			&.actor.acting.entering {
 				opacity: 0;
-				animation-name: timeline-node-line-show-up;
+				animation-name: #{$page-name}-timeline-node-line-show-up;
 				animation-duration: $timeline-node-line-duration;
 				animation-timing-function: ease-in-out;
 				animation-fill-mode: both;

@@ -83,13 +83,15 @@ $page-name: 'page-2';
 
     .do-you-know {
         position: absolute;
-        left: 2rem;
-        right: 2rem;
-        bottom: 4rem;
+        left: 1rem;
+        right: 1rem;
+        bottom: 6rem;
         margin: 0;
 
-        color: #eaba66;
-
+        p {
+            color: #eaba66;
+            font-size: 1.2rem;
+        }
 
         p.rolling-items {
             margin: 0;
