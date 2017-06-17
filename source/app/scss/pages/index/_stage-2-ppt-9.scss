@@ -1,0 +1,9 @@
+$page-name: 'page-9';
+$actor-name: null;
+
+.ppt-#{$page-name} {
+	$actor-name: #{$page-name}-opening-position;
+    .opening-position {
+        
+    }
+}

@@ -1,0 +1,58 @@
+$page-name: 'page-7';
+$actor-name: null;
+
+.ppt-#{$page-name} {
+    .actor {
+        opacity: 0;
+    }
+
+
+	$actor-name: #{$page-name}-the-3d-character;
+    .the-3d-character {
+        width: 5rem;
+        height: 8rem;
+        right: 1.5rem;
+        bottom: 2rem;
+        
+        background-position: right bottom;
+        background-size: contain;
+        background-image: url(images/ppt-7-man-in-suit-and-hat.png);
+        
+        &.actor {
+
+            &.acting.entering {
+                animation-delay: 0s;
+            }
+
+			@include -insaic-actor-with-standard-animation(
+				$actor-name,
+				$entering-distance: 5rem,
+				$entering-duration: 0.3s,
+                $entering-direction: 'left'
+			);
+        }
+    }
+
+	$actor-name: #{$page-name}-talking-bubble;
+    .talking-bubble {
+        background-image: url(images/ppt-7-taling-bubble.png);
+        
+    }
+
+	$actor-name: #{$page-name}-talking-content-1;
+    .talking-content-1 {
+        background-image: url(images/ppt-7-taling-content-1.png);
+        
+    }
+
+	$actor-name: #{$page-name}-talking-content-2;
+    .talking-content-2 {
+        padding: 0;
+    }
+
+	$actor-name: #{$page-name}-we-need-you;
+    .we-need-you {
+        background-image: url(images/we-need-you.png);
+        
+    }
+}
