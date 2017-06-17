@@ -13,7 +13,7 @@ $actor-name: null;
         height: 8rem;
         right: 1rem;
         bottom: 1rem;
-        
+
         background-position: right bottom;
         background-size: contain;
         background-image: url(images/ppt-7-man-in-suit-and-hat.png);
@@ -36,13 +36,13 @@ $actor-name: null;
 	$actor-name: #{$page-name}-talking-bubble;
     .talking-bubble {
         background-image: url(images/ppt-7-taling-bubble.png);
-        
+
     }
 
 	$actor-name: #{$page-name}-talking-content-1;
     .talking-content-1 {
         background-image: url(images/ppt-7-taling-content-1.png);
-        
+
     }
 
 	$actor-name: #{$page-name}-talking-content-2;
@@ -66,7 +66,7 @@ $actor-name: null;
                 opacity: 0.25;
             }
         }
-        
+
         &.actor {
 
             &.acting.entering {
@@ -84,7 +84,27 @@ $actor-name: null;
 
 	$actor-name: #{$page-name}-we-need-you;
     .we-need-you {
-        background-image: url(images/we-need-you.png);
-        
+        width: 50%;
+        height: 20%;
+        left: 10%;
+        bottom: 2.6rem;
+
+        background-size: contain;
+        background-position: left bottom;
+        background-image: url(images/ppt-7-we-need-you.png);
+
+        &.actor {
+
+            &.acting.entering {
+                animation-delay: 2s;
+            }
+
+			@include -insaic-actor-with-standard-animation(
+				$actor-name,
+				$entering-distance: 6rem,
+				$entering-duration: 0.28s,
+                $entering-direction: 'down'
+			);
+        }
     }
 }
