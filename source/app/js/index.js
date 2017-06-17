@@ -1,4 +1,4 @@
-(function (buildWhatWeWant) {
+(function (startApp) {
 	var global = window;
 	var errorStringAbsentPrefix = 'window.';
 	var errorStringAbsent = ' 是必须模块，但缺失了。';
@@ -24,7 +24,7 @@
 		if (typeof global[require4] !== 'object')
 			throw ReferenceError(errorStringAbsentPrefix + require4 + errorStringAbsent);
 
-		buildWhatWeWant(
+		startApp(
 			global[require1],
 			global[require2],
 			global[require3],
@@ -162,6 +162,12 @@
 
 	var stage2 = {
 		name: 'stage2',
+		settings: {
+			companyHistoricEvents: {
+				shouldAutoScrollTimeline: true,
+				autoScrollingTimelineCssClass: 'should-auto-scroll-timeline'
+			}	
+		},
 		elements: {
 			root: stage2Element
 		},
@@ -176,9 +182,10 @@
 			if (this.state.hasBeenSetup) return;
 
 			this.createPPT2RollingItemsCSSAnimations();
+			this.setupPPT5HistoricEvents();			
 			this.setupFullPage();
 			this.setupAllCanvases();
-			this.controllers.animation.startAnimation();			
+			this.controllers.animation.startAnimation();
 
 			this.state.hasBeenSetup = true;
 		},
@@ -186,10 +193,15 @@
 		setupFullPage: function () {
 			var $root = $(this.elements.root);
 			var $slides = $root.find('.ppt-pages-container .ppt-page');
+			var normalScrollElements = '';
+
+			if (!this.settings.companyHistoricEvents.shouldAutoScrollTimeline) {
+				normalScrollElements += ' .fp-scrollable';
+			}
 
 			$root.find('.ppt-pages-container').fullpage({
 				sectionSelector: '.ppt-page',
-				normalScrollElements: '.fp-scrollable',
+				normalScrollElements: normalScrollElements,
 
 				// lazyLoading: false,
 				dragAndMove: false,
@@ -797,6 +809,15 @@
 
 					return cssRulesForAllItems.join('');
 				}
+			}
+		},
+
+		setupPPT5HistoricEvents: function() {
+			var s = this.settings.companyHistoricEvents;
+			if (s.shouldAutoScrollTimeline) {
+				$('.ppt-page-5')
+					.addClass(s.autoScrollingTimelineCssClass)
+					.find('.timeline').addClass('actor');
 			}
 		}
 	};
