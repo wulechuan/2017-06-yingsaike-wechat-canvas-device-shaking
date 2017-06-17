@@ -1,0 +1,75 @@
+$page-name: 'page-10';
+$actor-name: null;
+
+.ppt-#{$page-name} {
+    color: #eaba66;
+
+	$actor-name: #{$page-name}-qrcode;
+    .qrcode {
+        position: absolute;
+        left: 4rem;
+        right: 4rem;
+        top: 20%;
+        height: 50%;
+
+        img {
+            border: 0;
+            display: block;
+            width: 100%;
+            height: auto;
+            margin: 1rem auto;
+        }
+
+        label {
+            display: block;
+            margin: 1rem -3rem;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        &.actor {
+            opacity: 0;
+
+            &.acting.entering {
+                animation-delay: 0.1s;
+            }
+
+			@include -insaic-actor-with-standard-animation(
+				$actor-name,
+				$entering-distance: 2rem,
+				$entering-duration: 0.6s,
+				$entering-direction: 'up'
+			);
+        }
+    }
+
+
+    $actor-name: #{$page-name}-call-to-action;
+    .call-to-action {
+        position: absolute;
+        left: 1rem;
+        right: 1rem;
+        bottom: 25%;
+        text-align: center;
+
+        // font-size: 0.8rem;
+
+        a, a:link, a:visited {
+            color: inherit;
+        }
+
+
+        &.actor {
+
+            &.acting.entering {
+                animation-delay: 1s;
+            }
+
+			@include -insaic-actor-with-standard-animation(
+				$actor-name,
+				$entering-distance: 0,
+				$entering-duration: 1s
+			);
+        }
+    }
+}
