@@ -204,6 +204,10 @@
 				// onSlideLeave: function(anchorLink, index, slideIndex, direction, nextSlideIndex){}
 			});
 
+			$('.swiping-hint').on('click', function () {
+				$.fn.fullpage.moveSectionDown();
+			});
+
 			function afterLoad(anchorLink, index) {
 				$($slides[index-1]).find('.actor')
 					.removeClass('leaving')
