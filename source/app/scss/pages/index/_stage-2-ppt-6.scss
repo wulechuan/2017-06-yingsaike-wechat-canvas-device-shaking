@@ -35,6 +35,7 @@ $actor-name: null;
         background-image: url(images/ppt-6-bg.png);
 
         &.actor {
+			opacity: 0;
 
             &.acting.entering {
                 animation-delay: 0.1s;

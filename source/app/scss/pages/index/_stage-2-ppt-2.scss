@@ -85,11 +85,13 @@ $page-name: 'page-2';
         position: absolute;
         left: 2rem;
         right: 2rem;
-        bottom: 4rem;
+        bottom: 6rem;
         margin: 0;
 
-        color: #eaba66;
-
+        p {
+            color: #eaba66;
+            font-size: 1.2rem;
+        }
 
         p.rolling-items {
             margin: 0;

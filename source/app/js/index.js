@@ -226,7 +226,7 @@
 					.addClass('acting entering');
 			}
 
-			function onLeave(index, nextIndex, direction) {
+			function onLeave(index /*, nextIndex, direction */) {
 				$($slides[index-1]).find('.actor')
 					.removeClass('entering')
 					.addClass('acting leaving');
@@ -318,8 +318,8 @@
 			var shouldKeepLastItemOnStage = true;
 
 
-			var itemHeight = 1.5;
-			var fontSizeRatio = 0.66; // fontSize = fontSizeRatio * itemHeigt
+			var itemHeight = 2;
+			// var fontSizeRatio = 0.66; // fontSize = fontSizeRatio * itemHeigt
 			var itemRotationXDelta = 6; // angle in degrees
 			var itemOpacityInit = 0;
 			var itemOpacityAfterFadeOut = 0.4;
@@ -619,14 +619,14 @@
 					}
 					var indentionPrefix2 = indentionPrefix1 + indention;
 
-					var fontSize = fontSizeRatio * itemHeight + 'rem';
+					// var fontSize = fontSizeRatio * itemHeight + 'rem';
 
 					cssRule.push(indentionPrefix1 +
 						selectorOfRoot + ' {\n'
 					);
-					cssRule.push(indentionPrefix2 +
-						'font-size: '+fontSize+';\n'
-					);
+					// cssRule.push(indentionPrefix2 +
+					// 	'font-size: '+fontSize+';\n'
+					// );
 					cssRule.push(indentionPrefix2 +
 						'line-height: '+itemHeightCss+';\n'
 					);
