@@ -39,7 +39,7 @@
 
 	var app = {
 		settings: {
-			maxSecondsToWaitForUserShakingDevice: 5,			
+			maxSecondsToWaitForUserShakingDevice: 5,
 		},
 		state: {},
 
@@ -55,7 +55,7 @@
 				stage1.onShow();
 			} else {
 				stage1.elements.root.style.display = 'none';
-				stage2.elements.root.style.display = '';	
+				stage2.elements.root.style.display = '';
 				stage2.onShow();
 			}
 		},
@@ -166,7 +166,7 @@
 			companyHistoricEvents: {
 				shouldAutoScrollTimeline: true,
 				autoScrollingTimelineCssClass: 'should-auto-scroll-timeline'
-			}	
+			}
 		},
 		elements: {
 			root: stage2Element
@@ -182,7 +182,8 @@
 			if (this.state.hasBeenSetup) return;
 
 			this.createPPT2RollingItemsCSSAnimations();
-			this.setupPPT5HistoricEvents();			
+			this.setupPPT5HistoricEvents();
+			this.setupPPT9();
 			this.setupFullPage();
 			this.setupAllCanvases();
 			this.controllers.animation.startAnimation();
@@ -371,7 +372,7 @@
 				var animationName;
 				var selector;
 
-				var allItemsScrollingTotalDuration = 
+				var allItemsScrollingTotalDuration =
 					(itemRollingDuration + itemPauseDuration) * itemCountToAnimate;
 
 				var itemRollingDurationPercentage =
@@ -742,7 +743,7 @@
 					cssRulesForAllItems.push(indentionPrefix1 +
 						commonSelector + ' {\n'
 					);
-					cssRulesForAllItems.push(indentionPrefix2 + 
+					cssRulesForAllItems.push(indentionPrefix2 +
 						'transform: translateZ(' + itemRotationOriginOffsetZCss + ');\n'
 					);
 					cssRulesForAllItems.push(indentionPrefix2 +
@@ -819,6 +820,22 @@
 					.addClass(s.autoScrollingTimelineCssClass)
 					.find('.timeline').addClass('actor');
 			}
+		},
+
+		setupPPT9: function() {
+			var $ppt9OpeningPositions = $('.ppt-page-9')
+				.find('.opening-position');
+			
+			this.elements.$ppt9OpeningPositions = $ppt9OpeningPositions;
+
+			$ppt9OpeningPositions.each(function () {
+				var $openingPosition = $(this);
+				var $positionTitle = $openingPosition.find('.title');
+				$openingPosition.on('click', function () {
+					// open popup layer?
+					console.log('clicked', $positionTitle.text());
+				});
+			});
 		}
 	};
 
