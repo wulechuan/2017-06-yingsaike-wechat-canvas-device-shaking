@@ -2,8 +2,224 @@ $page-name: 'page-9';
 $actor-name: null;
 
 .ppt-#{$page-name} {
-	$actor-name: #{$page-name}-opening-position;
-    .opening-position {
-        
+    transform-style: preserve-3d;
+    perspective: 10rem;
+
+    .actor.icon {
+        backface-visibility: hidden;
+
+        @keyframes #{$page-name}-opening-position-icon-entering-x {
+            0% { transform: rotateX(180deg); }
+            to { transform: rotateX(  0   ); }
+        }
+
+        @keyframes #{$page-name}-opening-position-icon-entering-y {
+            0% { transform: rotateY(180deg); }
+            to { transform: rotateY(  0   ); }
+        }
+
+        &.acting.entering {
+            animation-duration: 1.1s;
+            animation-fill-mode: both;
+        }
+    }
+
+    $actor-name: #{$page-name}-opening-position-title;
+    .actor.title {
+        opacity: 0;
+
+        @include -insaic-actor-with-standard-animation(
+            $actor-name,
+            $entering-distance: 1rem,
+            $entering-duration: 0.9s,
+            $entering-direction: 'up'
+        );
+    }
+
+    .opening-positions {
+        position: absolute;
+        left: 1rem;
+        right: 1rem;
+        top: 10%;
+        bottom: 10%;
+        margin: 0 auto 3rem;
+        list-style: none;
+        text-align: center;
+        padding: 0;
+
+        .opening-position {
+            display: inline-block;
+            vertical-align: top;
+            position: relative;
+            text-decoration: underline;
+            width: 33%;
+            margin: 2.5rem 0 0.5rem;
+
+            .icon {
+                position: relative;
+                width: 90%;
+                height: 4rem;
+                display: block;
+                margin: auto;
+                margin-bottom: 1rem;
+
+                background-size: contain;
+                background-position: center top;
+            }
+
+            .title {
+                margin: auto;
+                position: relative;
+                display: block;
+
+                .ofbl {
+                    display: block;
+                }
+            }
+
+            $actor-name: big-data-engineer;
+            &.#{$actor-name} {
+                color: #10a563;
+                
+                .icon {
+                    background-image: url(images/avatar-#{$actor-name}.png);
+                }
+
+                .icon.actor {
+
+                    &.acting.entering {
+                        animation-name: #{$page-name}-opening-position-icon-entering-x;
+                        animation-delay: 0.1s;
+                    }
+                }
+
+                .title.actor {
+
+                    &.acting.entering {
+                        animation-delay: 0.3s;
+                    }
+                }
+            }
+
+            $actor-name: big-data-scientist;
+            &.#{$actor-name} {
+                color: #eaba66;
+
+                .icon {
+                    background-image: url(images/avatar-#{$actor-name}.png);
+                }
+
+                .icon.actor {
+
+                    &.acting.entering {
+                        animation-name: #{$page-name}-opening-position-icon-entering-y;
+                        animation-delay: 0.4s;
+                    }
+                }
+
+                .title.actor {
+
+                    &.acting.entering {
+                        animation-delay: 0.6s;
+                    }
+                }
+            }
+
+            $actor-name: big-data-operation-engineer;
+            &.#{$actor-name} {
+                color: #00a0ea;
+
+                .icon {
+                    background-image: url(images/avatar-#{$actor-name}.png);
+                }
+
+                .icon.actor {
+
+                    &.acting.entering {
+                        animation-name: #{$page-name}-opening-position-icon-entering-x;
+                        animation-delay: 0.25s;
+                    }
+                }
+
+                .title.actor {
+
+                    &.acting.entering {
+                        animation-delay: 0.45s;
+                    }
+                }
+            }
+
+            $actor-name: ubi-planner;
+            &.#{$actor-name} {
+                color: #4948bd;
+
+                .icon {
+                    background-image: url(images/avatar-#{$actor-name}.png);
+                }
+
+                .icon.actor {
+
+                    &.acting.entering {
+                        animation-name: #{$page-name}-opening-position-icon-entering-y;
+                        animation-delay: 0.5s;
+                    }
+                }
+
+                .title.actor {
+
+                    &.acting.entering {
+                        animation-delay: 0.75s;
+                    }
+                }
+            }
+
+            $actor-name: ubi-operation-manager;
+            &.#{$actor-name} {
+                color: #00a0ea;
+
+                .icon {
+                    background-image: url(images/avatar-#{$actor-name}.png);
+                }
+
+                .icon.actor {
+
+                    &.acting.entering {
+                        animation-name: #{$page-name}-opening-position-icon-entering-x;
+                        animation-delay: 0.3s;
+                    }
+                }
+
+                .title.actor {
+
+                    &.acting.entering {
+                        animation-delay: 0.5s;
+                    }
+                }
+            }
+
+            $actor-name: ubi-pm;
+            &.#{$actor-name} {
+                color: #ad5d54;
+
+                .icon {
+                    background-image: url(images/avatar-#{$actor-name}.png);
+                }
+
+                .icon.actor {
+
+                    &.acting.entering {
+                        animation-name: #{$page-name}-opening-position-icon-entering-y;
+                        animation-delay: 0.61s;
+                    }
+                }
+
+                .title.actor {
+
+                    &.acting.entering {
+                        animation-delay: 0.83s;
+                    }
+                }
+            }
+        }
     }
 }
