@@ -84,7 +84,7 @@ function wlcCanvasPointsAndConnections(constructorOptions) {
 	var pointColorRGB = '0,0,0';
 	var lineColorRGB = '0,0,0';
 	var pointsAreRounded = true;
-	var shouldBoundAtBoundary = true;
+	var shouldBounceAtBoundary = true;
 
 	var activeAreaX1 = 0;
 	var activeAreaY1 = 0;
@@ -127,7 +127,7 @@ function wlcCanvasPointsAndConnections(constructorOptions) {
 		options = options || {};
 
 		if (typeof options.pointsAreRounded === 'boolean') pointsAreRounded = options.pointsAreRounded;
-		if (typeof options.shouldBoundAtBoundary === 'boolean') shouldBoundAtBoundary = options.shouldBoundAtBoundary;
+		if (typeof options.shouldBoundAtBoundary === 'boolean') shouldBounceAtBoundary = options.shouldBoundAtBoundary;
 
 		if (options.pointSize) pointSize = options.pointSize;
 		if (options.thickestLineWidth) thickestLineWidth = options.thickestLineWidth;
@@ -216,7 +216,7 @@ function wlcCanvasPointsAndConnections(constructorOptions) {
 			py = point.y;
 
 
-			if (shouldBoundAtBoundary) {
+			if (shouldBounceAtBoundary) {
 				if (px > activeAreaX2) {
 					point.vx = Math.abs(point.vx) * -1;
 				}
