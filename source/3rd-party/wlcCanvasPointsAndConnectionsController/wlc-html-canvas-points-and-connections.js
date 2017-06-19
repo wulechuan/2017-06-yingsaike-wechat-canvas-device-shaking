@@ -18,44 +18,63 @@
 
 	var controller = new wlcCanvasPointsAndConnections({
 		canvas: canvas,
-		maxDistanceToMakeConnection: 80,
-		pointsCount: 150,
+		maxDistanceToMakeConnection: 30,
+		lineWidthDrawingThreshold: 0.25,
+		pointsCount: 80,
 		thickestLineWidth: 1,
 		pointColorRGB: '64, 64, 80',
 		lineColorRGB: '128, 128, 160',
-		generateOnePoint: generateOnePoint,
+		speedMin: 0.1,
+		speedMax: 0.36,
+		generateOnePoint: generateOnePointAroundACircle,
 		updateOnePointOnIteration: updateOnePointOnIteration
 	});
 
-	function generateOnePoint(pointsCount, x1, y1, x2, y2) {
-		var r = (Math.random() * 0.4 + 0.8 ) * distributionRadius;
+	function generateOnePointAroundACircle(point) {
+		var r = (Math.random() * 0.6 + 0.7 ) * distributionRadius;
 		var theta = Math.random() * Math.PI * 2;
 
-		var x = r * Math.sin(theta) + centerX;
-		var y = r * Math.cos(theta) + centerY;
-
-		return {
-			x: x,
-			y: y
-		};
+		point.x = r * Math.sin(theta) + centerX;
+		point.y = r * Math.cos(theta) + centerY;
+		point.coreX = point.x;
+		point.coreY = point.y;
 	}
 
-	function updateOnePointOnIteration(point, vmin, vmax, pointsCount, x1, y1, x2, y2) {
+	function updateOnePointOnIteration(point, vmin, vmax) {
 		var vx, vy;
+
 		if (!point.hasOwnProperty('vx')) {
 			vx = Math.random() * (vmax - vmin) + vmin;
 			vy = Math.random() * (vmax - vmin) + vmin;
+			point.forceRatioOverDistanceX = 600 * Math.random() + 600;
+			point.forceRatioOverDistanceY = 600 * Math.random() + 600;
 		} else {
-			var oldVx = point.vx;
-			var oldVy = point.vy;
-			vx = oldVx * (Math.random() * 0.1 + 0.95);
-			vy = oldVy * (Math.random() * 0.1 + 0.95);
+			var coreXOld = point.coreX;
+			var coreYOld = point.coreY;
+			var distToCoreX = coreXOld - point.x;
+			var distToCoreY = coreYOld - point.y;
+
+			var coreRelativeX = coreXOld - centerX;
+			var coreRelativeY = coreYOld - centerY;
+			var coreCoordinateVectorLength = Math.sqrt(coreRelativeX * coreRelativeX + coreRelativeY * coreRelativeY);
+			var coreCoordinateVectorDirection = Math.atan2(coreRelativeY, coreRelativeX) + 1 / 180 * Math.PI;
+
+			point.coreX = coreCoordinateVectorLength * Math.sin(coreCoordinateVectorDirection) + centerX;
+			point.coreY = coreCoordinateVectorLength * Math.cos(coreCoordinateVectorDirection) + centerY;
+
+			point.x = point.coreX + distToCoreX;
+			point.y = point.coreY + distToCoreY;
+
+			// var forceX = distToCoreX * Math.abs(distToCoreX) / point.forceRatioOverDistanceX;
+			// var forceY = distToCoreY * Math.abs(distToCoreY) / point.forceRatioOverDistanceY;
+			// vx = point.vx + forceX;
+			// vy = point.vy + forceY;
 		}
 
 		point.vx = vx;
 		point.vy = vy;
-		point.speed = Math.sqrt(vx * vx + vy * vy);
-		point.direction = Math.atan2(vy, vx);
+		// point.speed = Math.sqrt(vx * vx + vy * vy);
+		// point.direction = Math.atan2(vy, vx);
 	}
 
 	window.addEventListener('resize', function () {
@@ -74,7 +93,7 @@ function wlcCanvasPointsAndConnections(constructorOptions) {
 	var canvasContext = canvas.getContext('2d');
 
 
-	var lineWidthThreshold = 0.2;
+	var lineWidthDrawingThreshold = 0.2;
 	var pointSize = 6;
 	var thickestLineWidth = 2;
 	var maxDistanceToMakeConnection = 160;
@@ -135,6 +154,9 @@ function wlcCanvasPointsAndConnections(constructorOptions) {
 		if (options.pointsCount) pointsCount = options.pointsCount;
 		if (options.pointColorRGB) pointColorRGB = options.pointColorRGB;
 		if (options.lineColorRGB) lineColorRGB = options.lineColorRGB;
+		if (options.lineWidthDrawingThreshold) lineWidthDrawingThreshold = options.lineWidthDrawingThreshold;
+		if (options.speedMin) speedMin = options.speedMin;
+		if (options.speedMax) speedMax = options.speedMax;
 
 		maxDistanceToMakeConnection2 = maxDistanceToMakeConnection * maxDistanceToMakeConnection;
 
@@ -205,7 +227,7 @@ function wlcCanvasPointsAndConnections(constructorOptions) {
 
 
 		allPoints.forEach(function (point, pointIndex) {
-			_updateOnePointOnIterationDefaultMethod(point);
+			thisController.updateOnePointOnIteration(point);
 
 
 			point.x += point.vx;
@@ -273,7 +295,7 @@ function wlcCanvasPointsAndConnections(constructorOptions) {
 	function drawLine(p1x, p1y, p2x, p2y, distanceRatio) {
 		var lineWidthRatio = 1 - distanceRatio;
 		var lineWidth = thickestLineWidth * lineWidthRatio;
-		if (lineWidth < lineWidthThreshold) return;
+		if (lineWidth < lineWidthDrawingThreshold) return;
 
 		var lineColor =  'rgba(' + lineColorRGB + ',' + Math.min(1, lineWidthRatio + 0.5) + ')';
 
@@ -290,8 +312,10 @@ function wlcCanvasPointsAndConnections(constructorOptions) {
 		allPoints.length = 0;
 
 		for (var i = 0; i < pointsCount; i++) {
-			var point = thisController.generateOnePoint(
-				pointsCount, activeAreaX1, activeAreaY1, activeAreaX2, activeAreaY2
+			var point = {};
+			
+			thisController.generateOnePoint(
+				point, pointsCount, activeAreaX1, activeAreaY1, activeAreaX2, activeAreaY2
 			);
 
 			thisController.updateOnePointOnIteration(
@@ -302,14 +326,9 @@ function wlcCanvasPointsAndConnections(constructorOptions) {
 		}
 	}
 
-	function _generateOnePointDefaultMethod() {
-		var x = random() * (activeAreaX2 - activeAreaX1) + activeAreaX1;
-		var y = random() * (activeAreaY2 - activeAreaY1) + activeAreaY1;
-
-		return {
-			x: x,
-			y: y
-		};
+	function _generateOnePointDefaultMethod(point) {
+		point.x = random() * (activeAreaX2 - activeAreaX1) + activeAreaX1;
+		point.y = random() * (activeAreaY2 - activeAreaY1) + activeAreaY1;
 	}
 
 	function _updateOnePointOnIterationDefaultMethod(point) {
