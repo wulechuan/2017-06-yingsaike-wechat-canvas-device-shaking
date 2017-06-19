@@ -61,7 +61,7 @@ $actor-name: null;
     .talking-bubble {
         left: 0;
         right: 0;
-        top: 0;
+        top: -3rem;
         bottom: 6rem;
 
         background-size: auto 100%;
@@ -112,8 +112,8 @@ $actor-name: null;
 
 	$actor-name: #{$page-name}-talking-content-2;
     .talking-content-2 {
-        left: 1.5rem;
-        right: 1.5rem;
+        left: 1rem;
+        right: 0.75rem;
         top: 27%;
         margin-top: -1.2rem;
         color: black;
@@ -122,7 +122,7 @@ $actor-name: null;
             line-height: 2;
 
             .yelling {
-                font-size: 125%;
+                font-size: 120%;
             }
 
             .fade-1 {

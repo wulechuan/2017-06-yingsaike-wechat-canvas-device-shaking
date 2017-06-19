@@ -20,22 +20,27 @@ article {
 	.ofbl /* opportunity for breaking line */ {
 		display: inline-block;
 	}
+
+	p, span, ul, ol, li {
+		white-space: normal;
+		word-break: break-all;
+	}
+
+	ol.list-indices-in-labels {
+		list-style: none;
+		padding-left: 0;
+
+		& > li {
+			position: relative;
+			padding-left: 3.5rem;	
+		}
+		& > li > .label {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		& > li.has-p-tag > .label { /* has-p-tag means there is a <p> nested under the <li>. */
+			top: 0.5em;
+		}
 }
-
-ol.list-indices-in-labels {
-	list-style: none;
-	padding-left: 0;
-
-	& > li {
-		position: relative;
-		padding-left: 3.5rem;	
-	}
-	& > li > .label {
-		position: absolute;
-		top: 0;
-		left: 0;
-	}
-	& > li.has-p-tag > .label { /* has-p-tag means there is a <p> nested under the <li>. */
-		top: 0.5em;
-	}
 }

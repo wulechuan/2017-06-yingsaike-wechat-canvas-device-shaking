@@ -60,6 +60,7 @@ $actor-name: null;
 
 
         &.actor {
+            opacity: 0;
 
             &.acting.entering {
                 animation-delay: 1s;

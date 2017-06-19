@@ -200,6 +200,9 @@
 				normalScrollElements += ' .fp-scrollable';
 			}
 
+			normalScrollElements += '.popup-layer';
+
+
 			$root.find('.ppt-pages-container').fullpage({
 				sectionSelector: '.ppt-page',
 				normalScrollElements: normalScrollElements,
@@ -823,19 +826,84 @@
 		},
 
 		setupPPT9: function() {
-			var $ppt9OpeningPositions = $('.ppt-page-9')
-				.find('.opening-position');
-			
-			this.elements.$ppt9OpeningPositions = $ppt9OpeningPositions;
+			var thisStage = this;
+			var $pageRoot = $('.ppt-page-9');
+			var $ppt9AllOpeningPositions = $pageRoot.find('.opening-position');
+			var $ppt9AllPopupLayersRoot = $pageRoot.find('.popup-layers');
+			var $ppt9AllPopupLayers = $ppt9AllPopupLayersRoot.find('.popup-layer');
 
-			$ppt9OpeningPositions.each(function () {
-				var $openingPosition = $(this);
-				var $positionTitle = $openingPosition.find('.title');
-				$openingPosition.on('click', function () {
-					// open popup layer?
-					console.log('clicked', $positionTitle.text());
+			thisStage.elements.$ppt9OpeningPositions = $ppt9AllOpeningPositions;
+
+			var ppt9AllPopupLayers = {};
+
+			$ppt9AllPopupLayers.each(function () {
+				var $popupLayer = $(this);
+				var $popupWindow = $popupLayer.find('.popup-window');
+				var popupLayerId = this.id;
+
+				ppt9AllPopupLayers[popupLayerId] = $popupLayer;
+				$popupLayer.$popupLayersRoot = $ppt9AllPopupLayersRoot;
+				$popupLayer.$popupWindow = $popupWindow;
+
+				var $buttonX = $popupLayer.find('.button-x');
+
+				$buttonX.on('click', function () {
+					thisStage.hidePopupLayer($popupLayer);
 				});
 			});
+
+			$ppt9AllOpeningPositions.each(function () {
+				var $openingPosition = $(this);
+				var popupLayerId = $openingPosition.attr('data-popup-layer-id');
+				var $popupLayer = ppt9AllPopupLayers[popupLayerId];
+
+				$openingPosition.on('click', function () {
+					thisStage.showPopupLayer($popupLayer);
+				});
+			});
+		},
+
+		showPopupLayer: function ($popupLayer) {
+			var cssClassNameForShowingUp = 'showing';
+			var cssClassNameForLeaving = 'leaving';
+			var timeToWaitForAnimation = 600;
+
+			var $popupWindow = $popupLayer.$popupWindow;
+
+			$.fn.fullpage.setAllowScrolling(false);
+			$.fn.fullpage.setKeyboardScrolling(false);
+
+			$popupWindow
+				.removeClass(cssClassNameForLeaving)
+				.addClass(cssClassNameForShowingUp);
+
+			$popupLayer.show();
+
+			setTimeout(function () {
+				$popupLayer.removeClass(cssClassNameForShowingUp);
+			}, timeToWaitForAnimation);
+		},
+
+		hidePopupLayer: function ($popupLayer) {
+			var cssClassNameForShowingUp = 'showing';
+			var cssClassNameForLeaving = 'leaving';
+			var timeToWaitForAnimation = 600;
+
+			var $popupWindow = $popupLayer.$popupWindow;
+
+			$popupWindow
+				.removeClass(cssClassNameForShowingUp)
+				.addClass(cssClassNameForLeaving);
+
+			setTimeout(function () {
+				$popupWindow.removeClass(cssClassNameForLeaving);
+
+				$popupLayer.hide();
+				// $popupLayersRoot.hide();
+
+				$.fn.fullpage.setAllowScrolling(true);
+				$.fn.fullpage.setKeyboardScrolling(true);
+			}, timeToWaitForAnimation);
 		}
 	};
 

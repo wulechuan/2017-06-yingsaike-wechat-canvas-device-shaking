@@ -6,20 +6,6 @@ $actor-name: null;
 	& > .content {
 		font-size: 0.6rem;
 		letter-spacing: 0.15em;
-
-		&::after {
-			content: '';
-			display: block;
-			height: 5.4rem;
-
-			z-index: 10;
-			position: absolute;
-			left: 0;
-			right: 0;
-			bottom: 0;
-
-			background-image: linear-gradient(to top, black 40%, transparent);
-		}
 	}
 
 

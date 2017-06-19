@@ -65,6 +65,8 @@ $actor-name: null;
 
                 background-size: contain;
                 background-position: center top;
+
+                transform: rotateY(180deg);
             }
 
             .title {
