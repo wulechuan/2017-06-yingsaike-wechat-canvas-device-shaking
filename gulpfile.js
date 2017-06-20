@@ -3,8 +3,10 @@ let shouldBuildSourceMaps = false;
 const shouldPreserveTempFilesForInspection = false;
 
 
-const appSourceGlobHtml = ['source/app/index.html'];
 const appSourceHtmlSnippetsPath = 'source/app/html-snippets';
+const appSourceGlobHtml = [
+	'source/app/index.html'
+];
 const appSourceGlobCss = ['source/app/**/*.scss', 'source/app/**/*.css'];
 const appSourceGlobJs = ['source/app/**/*.js'];
 const appSourceGlobAssets = ['source/app/images/**/*'];
@@ -34,12 +36,32 @@ const appSourceGlobToWatch = [
 const htmlInjectionCouples = [{
 	file: 'shake-device-to-start.html', name: 'shake-device-to-start:html'
 }];
-for (var index = 1; index <= 10; index++) {
-	htmlInjectionCouples.push({
-		file: 'ppt-'+index+'.html',
-		name: 'ppt-'+index+':html'
-	});
-}
+(function () {
+	for (let i = 1; i <= 10; i++) {
+		htmlInjectionCouples.push({
+			file: 'ppt-'+i+'.html',
+			name: 'ppt-'+i+':html'
+		});
+	}
+
+	const ppt9PopupLayersKeywords = [
+		'big-data-engineer',
+		'big-data-scientist',
+		'big-data-operation-engineer',
+		'ubi-planner',
+		'ubi-operation-manager',
+		'ubi-pm'
+	];
+
+	for (let i = 0; i < ppt9PopupLayersKeywords.length; i++) {
+		let keyword = ppt9PopupLayersKeywords[i];
+		htmlInjectionCouples.push({
+			file: 'ppt-9-popup-layer-'+keyword+'.html',
+			name: 'ppt-9-popup-layer-'+keyword+':html'
+		});
+	}
+})();
+
 
 
 
@@ -205,6 +227,7 @@ if (!shouldMinifyFiles) shouldBuildSourceMaps = false;
 			var injection = htmlInjectionCouples[i];
 			var filePath = pathTool.join(appSourceHtmlSnippetsPath, injection.file);
 			var starttag = '<!-- inject:' + injection.name + ' -->';
+			// console.log(starttag, ':::', filePath);
 
 			stream = stream.pipe(inject(gulp.src([filePath]), {
 				starttag: starttag,
@@ -285,7 +308,7 @@ if (!shouldMinifyFiles) shouldBuildSourceMaps = false;
 		setTimeout(()=> {
 			deleteFiles(buildCacheFolder);
 			onThisTaskDone();
-		}, 2222);
+		}, 3333);
 	});
 
 	gulp.task('build: all', (onThisTaskDone) => {

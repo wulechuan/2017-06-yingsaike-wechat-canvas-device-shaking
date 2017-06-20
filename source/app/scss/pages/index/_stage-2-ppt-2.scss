@@ -65,16 +65,36 @@ $page-name: 'page-2';
                     animation-name: #{$page-name}-#{$actor-name}-locator-entering;
                 }
 
+                @keyframes ppt-page-2-sphere-rotating-slowly {
+                    0% { transform: rotateZ(  0   ); }
+                    to { transform: rotateZ(360deg); }
+                }                
+
+                @keyframes ppt-page-2-sphere-deco-rotating-slowly {
+                    0% { transform: rotateZ(   0   ); }
+                    to { transform: rotateZ(-360deg); }
+                }                
+
                 .sphere {
                     width: $hanging-sphere-element-size;
                     height: $hanging-sphere-element-size;
                     background-image: url(images/ppt-2-sphere.png);
+                    animation-name: ppt-page-2-sphere-rotating-slowly;
+                    animation-duration: 50s;
+                    animation-timing-function: linear;
+                    animation-iteration-count: infinite;
+                    z-index: 2;
                 }
 
                 .sphere-deco {
                     width: $hanging-sphere-element-size;
                     height: $hanging-sphere-element-size;
                     background-image: url(images/ppt-2-sphere-with-deco.png);
+                    animation-name: ppt-page-2-sphere-deco-rotating-slowly;
+                    animation-duration: 100s;
+                    animation-timing-function: linear;
+                    animation-iteration-count: infinite;
+                    z-index: 1;
                 }
             }
         }
