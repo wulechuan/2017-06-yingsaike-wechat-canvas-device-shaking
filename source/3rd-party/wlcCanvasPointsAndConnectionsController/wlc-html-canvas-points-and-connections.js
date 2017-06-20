@@ -18,14 +18,14 @@
 
 	var controller = new wlcCanvasPointsAndConnections({
 		canvas: canvas,
-		maxDistanceToMakeConnection: 30,
+		maxDistanceToMakeConnection: 60,
 		lineWidthDrawingThreshold: 0.25,
-		pointsCount: 80,
+		pointsCount: 90,
 		thickestLineWidth: 1,
 		pointColorRGB: '64, 64, 80',
 		lineColorRGB: '128, 128, 160',
 		speedMin: 0.1,
-		speedMax: 0.36,
+		speedMax: 0.79,
 		generateOnePoint: generateOnePointAroundACircle,
 		updateOnePointOnIteration: updateOnePointOnIteration
 	});
@@ -49,26 +49,12 @@
 			point.forceRatioOverDistanceX = 600 * Math.random() + 600;
 			point.forceRatioOverDistanceY = 600 * Math.random() + 600;
 		} else {
-			var coreXOld = point.coreX;
-			var coreYOld = point.coreY;
-			var distToCoreX = coreXOld - point.x;
-			var distToCoreY = coreYOld - point.y;
-
-			var coreRelativeX = coreXOld - centerX;
-			var coreRelativeY = coreYOld - centerY;
-			var coreCoordinateVectorLength = Math.sqrt(coreRelativeX * coreRelativeX + coreRelativeY * coreRelativeY);
-			var coreCoordinateVectorDirection = Math.atan2(coreRelativeY, coreRelativeX) + 1 / 180 * Math.PI;
-
-			point.coreX = coreCoordinateVectorLength * Math.sin(coreCoordinateVectorDirection) + centerX;
-			point.coreY = coreCoordinateVectorLength * Math.cos(coreCoordinateVectorDirection) + centerY;
-
-			point.x = point.coreX + distToCoreX;
-			point.y = point.coreY + distToCoreY;
-
-			// var forceX = distToCoreX * Math.abs(distToCoreX) / point.forceRatioOverDistanceX;
-			// var forceY = distToCoreY * Math.abs(distToCoreY) / point.forceRatioOverDistanceY;
-			// vx = point.vx + forceX;
-			// vy = point.vy + forceY;
+			var distToCoreX = point.coreX - point.x;
+			var distToCoreY = point.coreY - point.y;
+			var forceX = distToCoreX * Math.abs(distToCoreX) / point.forceRatioOverDistanceX;
+			var forceY = distToCoreY * Math.abs(distToCoreY) / point.forceRatioOverDistanceY;
+			vx = point.vx + forceX;
+			vy = point.vy + forceY;
 		}
 
 		point.vx = vx;
