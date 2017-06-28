@@ -1,0 +1,17 @@
+@keyframes -webkit-menu-slides-down-wulechuan {
+    0%   { -webkit-transform: translate3D(0, -15%, -16rem  ) rotateX(87deg) scale3d(0.1 , 0.1 , 1); }
+    18%  { -webkit-transform: translate3D(0, -12%,  -7rem  ) rotateX(79deg) scale3d(0.55, 0.55, 1); }
+    36%  { -webkit-transform: translate3D(0,  -8%,  -3rem  ) rotateX(55deg) scale3d(0.66, 0.66, 1); }
+    54%  { -webkit-transform: translate3D(0,  -2%,  -1rem  ) rotateX(19deg) scale3d(0.87, 0.87, 1); }
+    72%  { -webkit-transform: translate3D(0,   2%,   0.2rem) rotateX( 1deg) scale3d(1.01, 1.07, 1); }
+    100% { -webkit-transform: translate3D(0,   0,    0     ) rotateX( 0   ) scale3d(1,    1,    1); }
+}
+
+@keyframes menu-slides-down-wulechuan {
+    0%   { transform: translate3D(0, -15%, -16rem  ) rotateX(87deg) scale3d(0.1 , 0.1 , 1); }
+    18%  { transform: translate3D(0, -12%,  -7rem  ) rotateX(79deg) scale3d(0.55, 0.55, 1); }
+    36%  { transform: translate3D(0,  -8%,  -3rem  ) rotateX(55deg) scale3d(0.66, 0.66, 1); }
+    54%  { transform: translate3D(0,  -2%,  -1rem  ) rotateX(19deg) scale3d(0.87, 0.87, 1); }
+    72%  { transform: translate3D(0,   2%,   0.2rem) rotateX( 1deg) scale3d(1.01, 1.07, 1); }
+    100% { transform: translate3D(0,   0,    0     ) rotateX( 0   ) scale3d(1,    1,    1); }
+}

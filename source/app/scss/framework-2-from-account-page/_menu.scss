@@ -1,0 +1,25 @@
+.menu-3d-transform-perspective-origin {
+    transform-style: preserve-3d;
+    perspective: 20rem;
+    z-index: 2;
+}
+
+.menu {
+    -webkit-transform-origin: center top;
+            transform-origin: center top;
+
+    form & {
+        width: auto; /* 无奈覆盖不正常的全局CSS声明 */
+    }
+
+    &.ng-enter {
+        -webkit-transition-property: none;
+                transition-property: none;
+        -webkit-animation-duration: 0.38s;
+                animation-duration: 0.38s;
+        -webkit-animation-name: menu-slides-down-wulechuan;
+                animation-name: menu-slides-down-wulechuan;
+        -webkit-animation-timing-function: linear;
+                animation-timing-function: linear;
+    }
+}

@@ -1,0 +1,41 @@
+.tabular {
+    word-break: break-all;
+    display: block;
+    margin: 0;
+
+    & > table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    td,
+    th,
+    .cell {
+        text-align: left;
+        padding: 0.8em;
+    }
+
+    thead,
+    .tabular-header {
+        color: white;
+        background-color: #222;
+    }
+
+    tbody tr,
+    .tabular-list .tabular-row {
+        transition: all 0.3s ease-out;
+
+        &.odd {
+            background-color: #f9f9f9;
+
+        }
+
+        &:hover {
+            background-color: #fff5e7;
+        }
+    }
+
+    .section.visual-block .content-frame & {
+        margin: -1em;
+    }
+}

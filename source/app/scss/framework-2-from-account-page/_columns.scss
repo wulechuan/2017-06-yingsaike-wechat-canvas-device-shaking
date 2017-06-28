@@ -1,0 +1,13 @@
+.columns {
+
+    .col {
+        box-sizing: border-box;
+        display: inline-block;
+        vertical-align: top;
+
+        &.col-left,
+        &.col-right {
+            width: 50%;
+        }
+    }
+}

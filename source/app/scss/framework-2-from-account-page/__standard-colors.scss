@@ -1,0 +1,83 @@
+$insaic-color-orange: #ff8140;
+$insaic-color-orange-dark: #e57439;
+
+$insaic-color-red: #ff5722;
+$insaic-color-red-dark: #f44336;
+
+$insaic-color-green: #60c564;
+$insaic-color-green-dark: #4caf50;
+
+$insaic-color-blue: #428bca;
+$insaic-color-blue-dark: #3c82be;
+
+$insaic-color-pink: #f9a;
+
+$insaic-grandient-should-compatible-with-old-webkit: false;
+
+@mixin insaic-gradient-bg(
+    $color-1,
+    $color-2: null,
+    $destination: top,
+    $how-colors-change-on-hover: 'to-be-ligher' // any of ['no-changes', to-be-lighter', 'to-be-darker', 'swap']
+    ) {
+
+    @if not $color-2 {
+        $color-2: lighten($color-1, 8%);
+    }
+
+    $color-1-hover: lighten($color-1, 8%);
+    $color-2-hover: lighten($color-2, 8%);
+
+    @if $how-colors-change-on-hover == 'to-be-darker' {
+
+        $color-1-hover: darken($color-1, 8%);
+        $color-2-hover: darken($color-2, 8%);
+
+    } @else if $how-colors-change-on-hover == 'swap' {
+
+        $color-1-hover: $color-2;
+        $color-2-hover: $color-1;
+
+    }
+
+
+    $opposite-destination: bottom;
+
+
+    @if $insaic-grandient-should-compatible-with-old-webkit {
+        @if $destination == top {
+            background-image: -webkit-gradient(linear, center bottom, center top, from($color-1), to($color-2));
+        } @else if $destination == bottom {
+            $opposite-destination: top;
+            background-image: -webkit-gradient(linear, center top, center bottom, from($color-1), to($color-2));
+        } @else if $destination == left {
+            $opposite-destination: right;
+            background-image: -webkit-gradient(linear, right center, left center, from($color-1), to($color-2));
+        } @else if $destination == right {
+            $opposite-destination: left;
+            background-image: -webkit-gradient(linear, left center, right center, from($color-1), to($color-2));
+        }
+    }
+
+    background-image: -webkit-linear-gradient($opposite-destination, $color-1, $color-2);
+    background-image: linear-gradient(to $destination, $color-1, $color-2);
+
+    @if $how-colors-change-on-hover != 'no-changes' {
+        &:hover {
+            @if $insaic-grandient-should-compatible-with-old-webkit {
+                @if $destination == top {
+                    background-image: -webkit-gradient(linear, center bottom, center top, from($color-1-hover), to($color-2-hover));
+                } @else if $destination == bottom {
+                    background-image: -webkit-gradient(linear, center top, center bottom, from($color-1-hover), to($color-2-hover));
+                } @else if $destination == left {
+                    background-image: -webkit-gradient(linear, right center, left center, from($color-1-hover), to($color-2-hover));
+                } @else if $destination == right {
+                    background-image: -webkit-gradient(linear, left center, right center, from($color-1-hover), to($color-2-hover));
+                }
+            }
+
+            background-image: -webkit-linear-gradient($opposite-destination, $color-1-hover, $color-2-hover);
+            background-image: linear-gradient(to $destination, $color-1-hover, $color-2-hover);
+       } 
+    }
+}

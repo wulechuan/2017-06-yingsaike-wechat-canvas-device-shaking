@@ -1,0 +1,41 @@
+article,
+.article {
+    word-break: break-all;
+    position: relative;
+
+    h1, h2, h3, h4 {
+        padding: 0.5em;
+        margin: 0 -0.5em;
+        font-weight: bold;
+    }
+
+    ol {
+        list-style: decimal;        
+    }
+
+    ul {
+        list-style: disc;        
+    }
+
+    ul, ol {
+        padding: 0.5em 1em 0.5em 4em;
+        margin-bottom: 1.5em;
+        line-height: 1.6;
+
+        li {
+            position: relative;
+            padding: 0.5em;
+            margin: -0.5em -0.5em 0;
+
+            &:last-child {
+                margin-bottom: -0.5em;
+            }
+
+            & > .label {
+                padding: 0.25em 0.5em;
+                margin: -0.25em -0.5em;
+                display: inline-block;
+            }
+        }
+    }
+}
