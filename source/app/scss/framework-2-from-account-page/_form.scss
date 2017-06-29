@@ -103,6 +103,11 @@ form,
         background-color: #eee;
     }
 
+    input[readonly][datepicker],
+    input[readonly][datepicker]:focus {
+        cursor: pointer;
+    }
+
     .form-row {
         position: relative;
         display: block;
