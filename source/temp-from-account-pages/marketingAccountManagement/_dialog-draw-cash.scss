@@ -1,0 +1,143 @@
+.marketing-account-dialog-draw-cash {
+
+    &.ngdialog {
+
+        .ngdialog-content {
+            width: 650px;
+            background-color: #f9f9f9;
+        }
+    }
+
+    .dialog-footer {
+
+        button {
+            padding: 0.75em 2em;
+        }
+    }
+
+    .stage-1 {
+
+        .notification-bar {
+            margin: -15px -1em 0;
+            padding: 1em;
+            color: black;
+            background-color: #cdf;
+        }
+
+        .columns {
+            background-color: #fffaee;
+            margin: 0 -1em;
+
+            .col {
+                padding: 1em;
+                vertical-align: middle;
+
+                &.col-left {
+                    width: 56%;
+                    background-color: white;
+                    min-height: 8em;
+
+                    .label, .value {
+                        box-sizing: border-box;
+                        padding: 0.25em 0.5em;
+                        display: inline-block;
+                        text-align: right;
+                        vertical-align: top;
+                        margin: 0;
+                    }
+
+                    .label {
+                        width: 60%;
+                    }
+
+                    .value {
+                        width: 40%;
+                    }
+                }
+
+                &.col-right {
+                    width: 44%;
+                    min-height: 4.5em;
+
+                    &.icon-cash {
+                        padding-left: 7em;
+                        background: url('../../images/marketing/accountbalance.png') no-repeat left center;
+                    }
+
+                    .label {
+                        display: block;
+                        margin: auto;
+                    }
+
+                    em {
+                        font-size: 120%;
+                        font-weight: bold;
+                    }
+                }
+            }
+
+            em {
+                color: #ef622c;
+            }
+        }
+    }
+
+    .stage-2 {
+
+        form {
+
+            .form-label-cell {
+                width: 10em;
+            }
+        }
+
+        .menu.bank-account-candidates {
+            position: absolute;
+            z-index: 3;
+            left: -10em;
+            top: 100%;
+            min-width: 10em;
+            padding: 0.5em 0;
+            margin: 0;
+            list-style: none;
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 1em rgba(0, 0, 0, 0.18);
+            background-clip: padding-box;
+
+            & > li {
+                display: block;
+                padding: 0.25em 1em;
+                line-height: 1.5;
+                color: #333333;
+                white-space: nowrap;
+
+                cursor: pointer;
+
+                &:hover {
+                    color: white;
+                    background: $insaic-color-blue;
+                }
+
+                span {
+                    display: inline-block;
+                    box-sizing: border-box;
+                    padding: 0.1em 1em;
+
+                    &.name {
+                        width: 10em;
+                    }
+
+                    &.value {
+                        width: 15em;
+                    }
+
+                    &.code {
+                        width: 15em;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,30 @@
+<div class="loading-hint" ng-if="!hasNoRecords && !hasRecords">loading...</div>
+
+<p class="empty-content-tip" 
+    ng-if="hasNoRecords">{{ emptyRecordsHint || '没有查询到任何相关的数据，请重新查询！' }}</p>
+
+<div class="tabular activities-records"
+    ng-if="hasRecords">
+    <table>
+        <thead>
+            <tr>
+                <th class="index" ng-if="shouldShowIndexColumn">序号</th>
+
+                <th class="name">活动名称</th>
+                <th class="amount">金额</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="record in records"
+                ng-class-odd="'odd'"
+                ng-class-even="'even'">
+                <td class="index" ng-if="shouldShowIndexColumn">{{ $index + firstIndex }}</th>
+
+                <td class="name">{{ record.mktName | emptyFormat }}</td>
+                <td class="amount">{{ record.fees | currency: '¥' }}</td>
+                <td>&nbsp;</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

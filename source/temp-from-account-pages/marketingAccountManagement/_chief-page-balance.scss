@@ -1,0 +1,39 @@
+.visual-block.balance {
+
+    .info-block {
+        list-style: none;
+
+        li {
+            display: inline-block;
+            vertical-align: top;
+
+            box-sizing: border-box;
+            width: 50%;
+            height: 4em;
+            line-height: 2em;
+            padding: 1em 6em;
+            text-align: left;
+
+            &.even {
+                border-left: 1px solid #eee;
+            }
+
+            & > .label,
+            .number,
+            button {
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+            & > .label {
+                margin-right: 1em;
+            }
+
+            button {
+                margin-left: 3em;
+                padding-left: 3em;
+                padding-right: 3em;
+            }
+        }
+    }
+}

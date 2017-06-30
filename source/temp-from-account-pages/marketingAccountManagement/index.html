@@ -1,0 +1,139 @@
+<!-- build:css ./css/marketingAccountManagement/index.min.css -->
+<link rel="stylesheet" id="CACHE_CSS" href="/v2/css/marketingAccountManagement/index.scss" />
+<!-- endbuild -->
+
+<div class="breadCrumbs">
+    <div class="mainWrap">
+        <h1 class="mainTitle">费用账户管理</h1>
+    </div>
+</div>
+
+<div class="mainWrap">
+    <div ng-controller="marketingAccountBalance"
+        class="section visual-block balance">
+        <div class="title-bar"
+            ><h3 class="title">账户余额<sub class="unit">（元）</sub></h3
+        ></div>
+
+        <div class="content-frame">
+            <div class="loading-hint" ng-if="!hasNoRecords && !hasRecords">loading...</div>
+
+            <p class="empty-content-tip" ng-if="hasNoRecords">暂无记录</p>
+
+            <div class="content" ng-if="hasRecords">
+                <ul class="info-block"
+                    ><li ng-repeat="record in records"
+                        ng-class-odd="'odd'"
+                        ng-class-even="'even'"
+                        ><span class="label">{{ record.accountType | config: 'feeType' }}</span
+                        ><em class="number">{{ record.balance | currency: '¥' }}</em
+                        ><button class="_button orange"
+                            ng-if="record.balance >= 0.01 && allDataAreReady"
+                            ng-click="drawCashFromBalanceOf(record)"
+                            >提现</button
+                    ></li
+                ></ul>
+            </div>
+        </div>
+    </div>
+
+    <div ng-controller="marketingAccountCashingRecords"
+        class="section visual-block cashing-records">
+        <div class="title-bar"
+            ><h3>提现记录</h3
+            ><a class="_button orange"
+                href="#!/marketing/draw-cash-details"
+                >查看明细</a
+        ></div>
+
+        <div class="content-frame">
+            <marketing-records-list template-keyword="draw-cash"
+                records="records"
+                empty-records-hint="'暂无提现记录'"
+                ></marketing-records-list>
+        </div>
+    </div>
+
+    <div ng-controller="marketingAccountTradingRecords"
+        class="section visual-block trading-records">
+        <div class="title-bar"
+            ><h3>交易明细</h3
+            ><a class="_button orange"
+                href="#!/marketing/trading-details"
+                >查看明细</a
+        ></div>
+
+        <div class="content-frame">
+            <marketing-records-list template-keyword="trading"
+                records="records"
+                empty-records-hint="'暂无交易记录'"
+                ></marketing-records-list>
+        </div>
+    </div>
+
+    <div ng-controller="marketingAccountActivities"
+        class="section visual-block activities">
+        <div class="title-bar"
+            ><h3>活动明细</h3
+            ><a class="_button orange"
+                href="#!/marketing/activity-details"
+                >查看明细</a
+        ></div>
+
+        <div class="content-frame">
+            <marketing-records-list template-keyword="activities"
+                records="records"
+                empty-records-hint="'暂无活动记录'"
+                should-show-index-column="true"
+                ></marketing-records-list>
+        </div>
+    </div>
+
+    <div ng-controller="marketingAccountInvoice" 
+        class="section visual-block invoice">
+        <div class="title-bar"><h3>发票样张</h3></div>
+
+        <div class="content-frame">
+            <div class="content article"
+                ><div class="legend">
+                    <img src="/v2/images/marketing/invoice.jpg">
+
+                    <div class="desc">
+                        <h4>开票注意事项：</h4>
+                        <ol>
+                            <li>开票信息已更新，具体请见右侧</li>
+                            <li>发票章需清晰</li>
+                            <li>发票自身的代码或号码需与打印至发票上的号码或代码一致</li>
+                            <li>发票内开具信息请勿错格，压线</li>
+                            <li>发票联和抵扣联请一并寄送</li>
+                        </ol>
+                    </div>
+                </div
+
+                ><hr class="vertical"
+
+                ><div class="addresses">
+                    <div class="address texes">
+                        <h4><span class="label">名称：</span>上海赢科信息技术有限公司</h4>
+                        <ul>
+                            <li><span class="label">纳税人识别号：</span>91310106MA1FY4XJ4G</li>
+                            <li><span class="label">开户银行：</span>中国工商银行上海市曹家渡支行</li>
+                            <li><span class="label">账号：</span>1001261809207931559</li>
+                            <li><span class="label">地址：</span>上海市静安区万荣路1256、1258号1621室</li>
+                            <li><span class="label">电话：</span>021-22206858</li>
+                        </ul>
+                    </div>
+
+                    <div class="address invoice">
+                        <h4>发票寄送地址</h4>
+                        <ul>
+                            <li><span class="label">收件人：</span>{{ data.recipient }}</li>
+                            <li><span class="label">电话：</span>{{ data.telephone }}</li>
+                            <li><span class="label">地址：</span>中国上海市静安区长寿路1111号悦达889广场30楼</li>
+                        </ul>
+                    </div>
+                </div
+            ></div>
+        </div>
+    </div>
+</div>

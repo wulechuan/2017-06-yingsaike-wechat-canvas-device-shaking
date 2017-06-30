@@ -1,0 +1,101 @@
+<!-- build:css ./css/marketingAccountManagement/index.min.css -->
+<link rel="stylesheet" id="CACHE_CSS" href="/v2/css/marketingDrawCashDetails/index.scss" />
+<link rel="stylesheet" href="/v2/css/datepicker.css"/>
+<!-- endbuild -->
+
+<div class="breadCrumbs">
+    <div class="mainWrap">
+        <h1 class="mainTitle">提现记录明细</h1>
+    </div>
+</div>
+
+<div class="mainWrap">
+    <div ng-controller="marketingDrawCashDetailsQueryControls"
+        class="section visual-block">
+        <div class="content-frame">
+            <div class="section query-controls">
+                <form ng-submit="submitQuery()">
+                    <div class="columns"
+                        ><div class="col col-left">
+                            <div class="form-row"
+                                ><div class="form-label-cell"
+                                    ><span class="form-label">申请类型</span
+                                ></div
+                                ><div class="form-input-cell"
+                                    ><select ng-model="queryData.accountType">
+                                        <option value="">全部</option>
+                                        <option ng-repeat="(accountType, accountTypeLabel) in availableAccountTypes"
+                                            value="{{ accountType }}"
+                                            >{{ accountTypeLabel }}</option>
+                                    </select
+                                ></div
+                            ></div>
+
+                            <div class="form-row"
+                                ><div class="form-label-cell"
+                                    ><span class="form-label">支付状态</span
+                                ></div
+                                ><div class="form-input-cell"
+                                    ><select ng-model="queryData.payStatus">
+                                        <option value="">全部</option>
+                                        <option ng-repeat="(paymentStatus, paymentStatusLabel) in possiblePaymentStatuses"
+                                            value="{{ paymentStatus }}"
+                                            >{{ paymentStatusLabel }}</option>
+                                    </select
+                                ></div
+                            ></div>
+                        </div
+
+                        ><div class="col col-right">
+                            <div class="form-row"
+                                ><div class="form-label-cell"
+                                    ><span class="form-label">审核状态</span
+                                ></div
+                                ><div class="form-input-cell"
+                                    ><select ng-model="queryData.approvalStatus">
+                                        <option value="">全部</option>
+                                        <option ng-repeat="(approvalStatus, approvalStatusLabel) in possibleApprovalStatuses"
+                                            value="{{ approvalStatus }}"
+                                            >{{ approvalStatusLabel }}</option>
+                                    </select
+                                ></div
+                            ></div>
+
+                            <div class="form-row"
+                                ><div class="form-label-cell"
+                                    ><span class="form-label">申请日期</span
+                                ></div
+                                ><div class="form-input-cell"
+                                    ><input id="queryStartDate"
+                                        type="text" readonly
+                                        datepicker ng-model="queryData.requestStartDate"
+                                    ><span class="form-label">至</span
+                                    ><input id="queryEndDate"
+                                        type="text" readonly
+                                        datepicker ng-model="queryData.requestEndDate"
+                                ></div
+                            ></div>
+                        </div
+                    ></div>
+
+                    <div class="form-row buttons-row">
+                        <button class="_button orange" type="submit"
+                            >查询</button>
+                    </div>
+                </form>
+            </div>
+
+            <marketing-records-list template-keyword="draw-cash" records="records"
+                should-show-index-column="true"
+                first-index="currentRecordSetStartIndex"
+                ></marketing-records-list>
+
+            <div page-nav class="_big pagination"
+                ng-show="pagination.totalPagesCount > 1"
+                current-page="{{pagination.currentPageIndex}}"
+                total-pages="{{pagination.totalPagesCount}}"
+                skip-fn="getRecordsOfPage"
+                ></div>
+        </div>
+    </div>
+</div>

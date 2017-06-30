@@ -1,0 +1,32 @@
+.section.query-controls {
+
+    form {
+        margin: 2em 5em;
+
+        & > .columns {
+            & > .col-left {
+                width: 48%;
+            }
+
+            & > .col-right {
+                width: 52%;
+            }
+
+            .form-label-cell {
+                width: 6em;
+            }
+
+            .form-input-cell {
+                width: auto;
+
+                input {
+                    width: 160px;
+                }
+
+                select {
+                    width: 250px;
+                }
+            }
+        }
+    }
+}

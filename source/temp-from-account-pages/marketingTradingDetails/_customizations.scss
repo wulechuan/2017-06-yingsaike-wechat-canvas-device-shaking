@@ -1,0 +1,14 @@
+.section.query-controls {
+
+    form {
+        margin: 2em 5em;
+
+        input {
+            width: 241px; // 以吻合Pickaday控件的宽度
+        }
+
+        .form-label-cell {
+            width: 6em;
+        }
+    }
+}
