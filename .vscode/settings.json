@@ -5,7 +5,7 @@
         "node_modules": true
         // ,"build": true
     },
-    "express.portNumber": 8787,
+    "express.portNumber": 8811,
     "express.relativeRoot": "build",
     "htmlhint.options": {
         "tagname-lowercase": false,
