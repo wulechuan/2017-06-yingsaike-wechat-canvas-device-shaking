@@ -39,7 +39,7 @@
 
 	var app = {
 		settings: {
-			maxSecondsToWaitForUserShakingDevice: 3,
+			maxSecondsToWaitForUserShakingDevice: 1,
 		},
 		state: {},
 
