@@ -42,11 +42,11 @@ blockquote::after , ul::after , ol::after , li::after , dl::after , dt::after , 
 div, span, button, input, ol, ul, li, p, a, em,
 div::before, span::before, button::before, input::before, ol::before, ul::before, li::before, p::before,
 div::after , span::after , button::after , input::after , ol::after , ul::after , li::after , p::after {
-	-webkit-transition-property: -webkit-transform, visibility, opacity, color, background-color, border-color;
+	// -webkit-transition-property: -webkit-transform, visibility, opacity, color, background-color, border-color;
 			transition-property:         transform, visibility, opacity, color, background-color, border-color;
-	-webkit-transition-duration:         0.33s,     0.33s,      0.33s,   0.20s, 0.30s,            0.30s;
-			transition-duration:         0.33s,     0.33s,      0.33s,   0.20s, 0.30s,            0.30s;
-	-webkit-transition-timing-function: ease-out;
+	// -webkit-transition-duration:             0.33s,      0.33s,   0.33s, 0.20s,            0.30s,        0.30s;
+			transition-duration:             0.33s,      0.33s,   0.33s, 0.20s,            0.30s,        0.30s;
+	// -webkit-transition-timing-function: ease-out;
 			transition-timing-function: ease-out;
 	/* ie9 doesn't support css transition but does support css -ms-transform */
 }
@@ -59,7 +59,7 @@ html {
 }
 
 body {
-	line-height: 1.333;
+	line-height: 1.5;
 	font-size: 16px;
 	font-size: 0.8rem;
 
@@ -79,39 +79,25 @@ body {
 
 a {
 	font-size: inherit;
-	}
-	a, a:link {
+
+	&,
+    &:link {
 		text-decoration: none;
 	}
 
-	a:link {
+	&:link {
 		cursor: pointer;
 	}
 
-	a:hover {
+	&:hover {
 		text-decoration: underline;
 	}
 
-	a.button, a.button:hover {
+	&.button,
+    &.button:hover {
 		text-decoration: none;
 	}
-
-input, textarea, select, option, button, .button {
-    box-sizing: content-box;
-    margin: 0.5em;
-    padding: 0.5em;
-    border-width: 1px;
-
-	font-size: inherit;
-	border-color: black;
-	background-color: transparent;
-    line-height: normal;
-    border-style: solid;
-
-    display: inline-block;
-    vertical-align: top;
 }
-
 
 ::-webkit-input-placeholder { /* WebKit browsers */
 	font-size: 12px;
@@ -151,43 +137,75 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 
-
-
-button, .button, input, select, label, a,
-button:active, .button:active, input:active, select:active, label:active, textarea:active,
-button:focus , .button:focus , input:focus , select:focus , label:focus , textarea:focus,
-button label:active,
-button label:focus,
-.button label:active,
-.button label:focus,
-a.button label:active,
-a.button label:focus {
-	outline-offset: -1px;
-	outline-width: 1px;
-	outline-style: none;
-}
-a, select, option, label[for],
-input[type="submit"], input[type="button"], input[type="reset"], input[type="radio"], input[type="checkbox"],
- button,  button label,  button .label,
-.button, .button label, .button .label {
-    cursor: pointer;
-}
-.button > label,
- button > label，
-.button > .label,
- button > .label {
-	display: block; /* for ie8 */
-	text-align: center;
-}
-
 button::-moz-focus-inner { /* remove firefox default extra paddings as well as dotted lines */
     margin: 0;
 	padding: 0;
 	border-width: 0;
 }
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
+
+
+input, textarea, select, option, button, .button {
+    box-sizing: content-box;
+    margin: 0.5em;
+    padding: 0.5em;
+    border-width: 1px;
+
+	font-size: inherit;
+	border-color: black;
+	background-color: transparent;
+    line-height: normal;
+    border-style: solid;
+
+    display: inline-block;
+    vertical-align: top;
+}
+
+.button,
+button,
+label, 
+select,
+textarea,
+input,
+a {
+    &,
+    &:active,
+    &:focus {
+        outline-offset: -1px;
+        outline-width: 1px;
+        outline-style: none;
+    }
+}
+
+a.button,
+ .button,
+  button {
+    > .label,
+    >  label {
+        &
+        &:active,
+        &:focus {
+
+            outline-offset: -1px;
+            outline-width: 1px;
+            outline-style: none;
+        }
+    }
+}
+
+a, select, option,
+input[type="submit"], input[type="button"], input[type="reset"], input[type="radio"], input[type="checkbox"],
+label[for] {
+    cursor: pointer;
+}
+
+.button,
+ button {
+    > .label,
+    >  label {
+        cursor: pointer;
+        display: block; /* for ie8 */
+        text-align: center;
+    }
 }
 
 table {
@@ -195,7 +213,12 @@ table {
 	border-spacing: 0;
 }
 
-.title,
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+// .title,
 dt,
 h6,
 h5,
@@ -206,27 +229,34 @@ h1 {
 	text-indent: 0;
 }
 
-article ul, .article ul {
-	padding-left: 2em;
-	list-style: disc;
-}
-article ol, .article ol {
-	padding-left: 2em;
-	list-style: decimal;
-}
-article li, .article li {
-    margin: 0.75em 0;
-}
-article p, .article p {
-    padding: 0.25em 0.5em;
-    margin: 0em -0.5em;
-    line-height: 1.5;
-}
+.article, // for small text blocks, such as floating info tips
+ article {
+    ul {
+        padding-left: 2.5em;
+        list-style: disc;
+    }
 
-blockquote, q {
-	quotes: none;
-}
-blockquote::before, q::before,
-blockquote::after , q::after {
-	content: none;
+    ol {
+        padding-left: 2.5em;
+        list-style: decimal;
+    }
+
+    li {
+        margin: 0.75em 0;
+    }
+
+    p {
+        padding: 0.25em 0.5em;
+        margin: 0em -0.5em;
+        line-height: 1.5;
+    }
+
+    blockquote, q {
+        quotes: none;
+    }
+
+    blockquote::before, q::before,
+    blockquote::after , q::after {
+        content: none;
+    }
 }
